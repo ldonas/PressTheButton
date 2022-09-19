@@ -15,7 +15,9 @@
     <string name="textVersion" translatable="false">0.0</string>
     <!-- Game -->
     <string name="textPoints">Score: %d</string>
+    <string name="textFail">Failed!: %d</string>
     <string name="textEnd">End: %d</string>
+    <string name="textSecondsCount" translatable="false">%d s</string>
     <string name="textSubmit">Submit Score</string>
     <string name="textbtnShare">Share</string>
     <string name="textReplay">Replay</string>
@@ -116,12 +118,13 @@
     <string name="errorLeaderboard">Sorry can\'t load Leaderboard Screen.</string>
 
     <!--app_id-->
-    <string name="app_id" translatable="false">749115142142</string>
+    <string name="app_id" translatable="false">press-the-color-59946535</string>
     <!--package_name-->
     <string name="package_name" translatable="false">com.loredo.pressthebutton</string>
     <!--leaderboard Mejores Puntuaciones-->
     <string name="leaderboard_mejores_puntuaciones" translatable="false">CgkI_t_31eYVEAIQAA</string>
     <!-- Ads -->
-    <string name="textAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
+    <string name="textInterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
+    <string name="textBannerAdUnitID" translatable="false">ca-app-pub-3987144895253056/4923205061</string>
 
 </resources>

@@ -7,32 +7,34 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.games.GamesSignInClient;
 import com.google.android.gms.games.PlayGames;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.games.PlayGamesSdk;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -50,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //PlayGamesSdk.initialize(this);
 
-        MobileAds.initialize(this, initializationStatus -> LoadAds());
-
         _btnPlay = findViewById(R.id.btnPlay);
         _btnPlay.setOnClickListener(this);
         _btnStats = findViewById(R.id.btnStats);
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView _tvVersion = findViewById(R.id.tvVersion);
         _tvVersion.setText(BuildConfig.VERSION_NAME);
         _btnSignIn = findViewById(R.id.btnSignIn);
+
+        MobileAds.initialize(this, initializationStatus -> LoadAds());
 
         SetSettings();
 
@@ -130,19 +132,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adRequest = new AdManagerAdRequest.Builder();
         adRequest.setHttpTimeoutMillis(60000);
 
-        InterstitialAd.load(this, getString(R.string.textAdUnitID), adRequest.build(),
+        InterstitialAd.load(this, getString(R.string.textInterstitialAdUnitID), adRequest.build(),
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         mInterstitialAd = interstitialAd;
-                        Log.println(Log.ERROR, "AD", "Loaded");
+                        Log.println(Log.ERROR, "AD LOADED", mInterstitialAd.toString());
                         FullScreenAd();
                     }
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         ad = 52;
-                        Log.println(Log.ERROR, "AD", "Error");
                         mInterstitialAd = null;
                     }
                 });
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAdClicked() {
                 // Called when a click is recorded for an ad.
-                if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("EnableSound", true)) {
+                if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(getString(R.string.idMusic), true)) {
                     MediaPlay.MenuMusicPlayer(MediaPlay.STOP);
                     MediaPlay.GameMusicPlayer(MediaPlay.STOP);
                 }

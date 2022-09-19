@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ad="http://schemas.android.com/apk/res-auto"
     android:isScrollContainer="true"
     android:scrollbars="vertical"
     tools:context=".MainActivity">
@@ -15,25 +16,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="24dp"
         android:contentDescription="@string/descriptionLogo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_logo"
         tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/textVersion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -122,6 +112,23 @@
         tools:ignore="RedundantDescriptionCheck" />
 
     <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/none"
+        android:contentDescription="@string/descriptionPlaySignIn"
+        android:text="@string/textNone"
+        android:visibility="gone"
+        app:icon="@drawable/games_controller_white"
+        app:iconGravity="top"
+        app:iconSize="30dp"
+        app:iconTint="@color/IconColor"
+        app:iconTintMode="src_in"
+        app:layout_constraintStart_toEndOf="@+id/btnSettings"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnHelp"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -138,78 +145,81 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RedundantDescriptionCheck" />
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-        <Button
-            android:id="@+id/btnPlay"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/descriptionPlayButton"
-            android:hapticFeedbackEnabled="true"
-            android:minHeight="48dp"
-            android:text="@string/textPlay"
-            app:icon="@drawable/ic_baseline_play_arrow" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnStats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/descriptionStatsButton"
-            android:hapticFeedbackEnabled="true"
-            android:minHeight="48dp"
-            android:text="@string/textStats"
-            app:icon="@drawable/ic_baseline_leaderboard" />
+            <Button
+                android:id="@+id/btnPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/descriptionPlayButton"
+                android:hapticFeedbackEnabled="true"
+                android:minHeight="48dp"
+                android:text="@string/textPlay"
+                app:icon="@drawable/ic_baseline_play_arrow" />
 
-        <Button
-            android:id="@+id/btnLeaderboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/descriptionLeaderboardButton"
-            android:hapticFeedbackEnabled="true"
-            android:minHeight="48dp"
-            android:text="@string/textLeaderboard"
-            android:visibility="gone"
-            app:icon="@drawable/ic_baseline_star_24" />
+            <Button
+                android:id="@+id/btnStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/descriptionStatsButton"
+                android:hapticFeedbackEnabled="true"
+                android:minHeight="48dp"
+                android:text="@string/textStats"
+                app:icon="@drawable/ic_baseline_leaderboard" />
 
-        <Button
-            android:id="@+id/btnCredits"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/descriptionCreditsButton"
-            android:hapticFeedbackEnabled="true"
-            android:minHeight="48dp"
-            android:text="@string/textBtnCredits"
-            app:icon="@drawable/ic_baseline_view_headline_24" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnLeaderboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/descriptionLeaderboardButton"
+                android:hapticFeedbackEnabled="true"
+                android:minHeight="48dp"
+                android:text="@string/textLeaderboard"
+                android:visibility="gone"
+                app:icon="@drawable/ic_baseline_star_24" />
 
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/none"
-        android:contentDescription="@string/descriptionPlaySignIn"
-        android:text="@string/textNone"
-        app:icon="@drawable/games_controller_white"
-        app:iconGravity="top"
-        app:iconSize="30dp"
-        app:iconTint="@color/IconColor"
-        app:iconTintMode="src_in"
-        app:layout_constraintStart_toEndOf="@+id/btnSettings"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone" />
+            <Button
+                android:id="@+id/btnCredits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/descriptionCreditsButton"
+                android:hapticFeedbackEnabled="true"
+                android:minHeight="48dp"
+                android:text="@string/textBtnCredits"
+                app:icon="@drawable/ic_baseline_view_headline_24" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/textVersion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

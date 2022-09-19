@@ -17,35 +17,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PressTheButton"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
             android:name=".CreditsActivity"
+            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".StatsActivity"
+            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
+            android:hardwareAccelerated="true"
             android:exported="false" />
         <activity
             android:name=".HelpActivity"
             android:exported="false"
+            android:hardwareAccelerated="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PressTheButton.NoActionBar" />
         <activity
             android:name=".Leaderboard"
+            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".Juego"
             android:exported="false"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PressTheButton.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.PressTheButton.NoActionBar">
+            android:theme="@style/Theme.PressTheButton.NoActionBar"
+            android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

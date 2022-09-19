@@ -33,4 +33,5 @@
     <string name="textBtnCredits">Créditos</string>
     <string name="errorLeaderboard">No se pudo cargar la tabla de marcadores.</string>
     <string name="errorNotImplemented">Función no implementada aún.</string>
+    <string name="textFail">¡Fallaste!: %d</string>
 </resources>

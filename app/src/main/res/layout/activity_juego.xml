@@ -58,18 +58,39 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/pbMinute"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="17dp"
+    <LinearLayout
+        android:id="@+id/llMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:progressTint="@color/pbMinuteAfterColor"
-        android:progressTintMode="src_in"
-        android:visibility="invisible"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbSecond" />
+        app:layout_constraintTop_toBottomOf="@+id/pbSecond">
+
+        <TextView
+            android:id="@+id/tvSecondsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/textSecondsCount"
+            android:textColor="@color/ForegroundColor"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/pbMinute"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="300dp"
+            android:layout_height="17dp"
+            android:layout_weight="2"
+            android:progressTint="@color/pbMinuteAfterColor"
+            android:progressTintMode="src_in"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pbSecond"
@@ -92,7 +113,7 @@
         app:layout_constraintBottom_toTopOf="@+id/llBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pbMinute"
+        app:layout_constraintTop_toBottomOf="@id/llMinute"
         app:layout_constraintVertical_bias="0.0">
 
         <TableRow

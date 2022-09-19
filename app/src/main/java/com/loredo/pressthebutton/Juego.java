@@ -51,7 +51,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
     private int _pbSecondBefore, _pbSecondAfter, _pbMinuteBefore, _pbMinuteAfter;
 
-    private TextView _tvPoints, _tvCounter;
+    private TextView _tvPoints, _tvCounter, _tvSecondsCount;
     private Animation _anim;
 
     private final Handler _handler = new Handler();
@@ -93,6 +93,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                     _pbarSecond.setVisibility(View.VISIBLE);
                     mImageView.setVisibility(View.VISIBLE);
                     _tvPoints.setVisibility(View.VISIBLE);
+                    _tvSecondsCount.setVisibility(View.VISIBLE);
                     NewColors();
                     if(_bMusic)
                         MediaPlay.GameMusicPlayer(MediaPlay.PLAY);
@@ -103,6 +104,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             {
                 delta = _MAXTIMEGAME;
                 _pbarMinute.setProgress((int)delta,true);
+                _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),0));
                 EndGame(false);
             }
             else
@@ -110,9 +112,9 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                 int progressTint = GamesColor.ColorLerp(_pbMinuteBefore,_pbMinuteAfter,(int)delta,(int)_MAXTIMEGAME);
                 _pbarMinute.setProgressTintList(ColorStateList.valueOf(progressTint));
                 _pbarMinute.setProgress((int)delta, true);
+                _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),((_MAXTIMEGAME - delta)/1000L)));
                 _handler.postDelayed(this,100);
             }
-
         }
     };
 
@@ -152,6 +154,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _btnShare = findViewById(R.id.btnShare);
         _btnShare.setOnClickListener(this);
         _btnShare.setVisibility(View.GONE);
+        _tvSecondsCount = findViewById(R.id.tvSecondsCount);
 
         Button _btnShare = findViewById(R.id.btnShare);
         _btnShare.setOnClickListener(view -> {
