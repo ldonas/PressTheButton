@@ -1,0 +1,40 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.PressTheButton" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_700</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/minusBlack</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="Theme.PressTheButton.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/minusBlack</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="ButtonShadow" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">#00000000</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+    <color name="ActionBarBackground">@color/lightGray</color>
+    <color name="IconColor">@color/mediumGray</color>
+    <color name="ForegroundColor">@color/minusBlack</color>
+    <color name="pbSecondAfterColor">@color/darkRed</color>
+    <color name="pbSecondBeforeColor">@color/mediumGreen</color>
+    <color name="pbMinuteAfterColor">@color/mediumGreen</color>
+    <color name="pbMinuteBeforeColor">@color/darkBlue</color>
+</resources>

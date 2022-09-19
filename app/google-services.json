@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "955647678659",
+    "project_id": "pressthebutton-f9867",
+    "storage_bucket": "pressthebutton-f9867.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955647678659:android:53094c7f6dcae8f4b5ea76",
+        "android_client_info": {
+          "package_name": "com.loredo.pressthebutton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955647678659-ev59uqqiivr5h9k56o4i88fpgfu4mfu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxi-7EDB-zu_gMprJMRMF8GHtepat3CFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955647678659-ev59uqqiivr5h9k56o4i88fpgfu4mfu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

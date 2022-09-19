@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Press The Color</string>
+    <string name="textNone" translatable="false" />
+    <string name="textHintReturn">Return</string>
+    <!-- Main menu -->
+    <string name="app_first_word">Press</string>
+    <string name="app_second_word">The</string>
+    <string name="app_third_word">Color</string>
+    <string name="textPlay">Play</string>
+    <string name="textStats">Stats</string>
+    <string name="textLeaderboard">Leaderboard</string>
+    <string name="textBtnCredits">Credits</string>
+    <string name="textLoadAd">Loading…</string>
+    <string name="textToastAd">Can\'t load Ad</string>
+    <string name="textVersion" translatable="false">0.0</string>
+    <!-- Game -->
+    <string name="textPoints">Score: %d</string>
+    <string name="textEnd">End: %d</string>
+    <string name="textSubmit">Submit Score</string>
+    <string name="textbtnShare">Share</string>
+    <string name="textReplay">Replay</string>
+    <string name="textShare">I Score %d points in Press The Color game!!</string>
+    <!-- Help -->
+    <string name="textHint1">This is the score you have.</string>
+    <string name="textHint2">This is the color to match.</string>
+    <string name="textHint3">This is the time to select the correct color.\nYou have 2 seconds.\nIf you don\'t select the correct color, you lose.</string>
+    <string name="textHint4">This is the time to game.\nOnly 1 minute to score the best.</string>
+    <string name="textHint5">These are the options to match the correct color.</string>
+    <!--game Stats -->
+    <string name="textTotalGames">Total games: %d</string>
+    <string name="textGamesFinished">Games finished: %d</string>
+    <string name="textMedianPressTime">Average press time: %.4f s</string>
+    <string name="textLastMedianPressTime">Last average press time: %.4f s</string>
+    <string name="textBestScore">Best score: %d points</string>
+    <!-- Preferences -->
+    <string name="textSettings">Settings</string>
+    <string name="textNightMode">Night mode</string>
+    <string name="idNightMode" translatable="false">NightMode</string>
+    <string name="textSound">Enable music</string>
+    <string name="idMusic" translatable="false">EnableMusic</string>
+    <string name="textFX">Enable FX</string>
+    <string name="idFX" translatable="false">EnableFX</string>
+    <string name="idBestTimePress" translatable="false">BestTimePress</string>
+    <string name="idAverageTimePress" translatable="false">AverageTimePress</string>
+    <string name="idLastAverageTimePress" translatable="false">LastAverageTimePress</string>
+    <string name="idTotalGames" translatable="false">TotalGames</string>
+    <string name="idGamesFinished" translatable="false">GamesFinished</string>
+    <string name="idBestScore" translatable="false">BestScore</string>
+    <string name="idFirstTime" translatable="false">FirstTime</string>
+    <!-- Credits -->
+    <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.
+        By Frankum &amp; Frankumjay.
+        https://freesound.org/people/frankum/sounds/382931
+        \n
+        Menu Music: Possible Loading Screen Music
+        By CrushedLoops
+        https://freesound.org/people/CrushedLoops/sounds/612848
+        \n
+        Sound Success: UI Pop Up
+        By EminYILDIRIM
+        https://freesound.org/people/EminYILDIRIM/sounds/540568
+        \n
+        Sound Failure: UI Sound 13
+        By Nezuai
+        https://freesound.org/people/nezuai/sounds/577024
+        \n
+        Sound Counter Back: Score Counter 01
+        By Rhodesmas
+        https://freesound.org/people/rhodesmas/sounds/342759
+        \n
+        All Icons are included in the Android Studio Software
+        \n
+        The rest: Lorenzo Doñas Rodríguez</string>
+
+    <!--Descripciones-->
+    <string name="descriptionLogo" translatable="false">GameLogo</string>
+    <string name="descriptionHelpButton" translatable="false">Help Button</string>
+    <string name="descriptionSettingsButton" translatable="false">Settings Button</string>
+    <string name="descriptionPlaySignIn" translatable="false">Play Games Sign In</string>
+    <string name="descriptionPlayButton" translatable="false">Play Game</string>
+    <string name="descriptionStatsButton" translatable="false">Stats</string>
+    <string name="descriptionLeaderboardButton" translatable="false">Leaderboard</string>
+    <string name="descriptionCreditsButton" translatable="false">Credits</string>
+    <string name="descriptionColorExample" translatable="false">Example Color</string>
+    <string name="descriptionColorButton1" translatable="false">Color 1</string>
+    <string name="descriptionColorButton2" translatable="false">Color 2</string>
+    <string name="descriptionColorButton3" translatable="false">Color 3</string>
+    <string name="descriptionColorButton4" translatable="false">Color 4</string>
+    <string name="descriptionColorButton5" translatable="false">Color 5</string>
+    <string name="descriptionColorButton6" translatable="false">Color 6</string>
+    <string name="descriptionColorButton7" translatable="false">Color 7</string>
+    <string name="descriptionColorButton8" translatable="false">Color 8</string>
+    <string name="descriptionColorButton9" translatable="false">Color 9</string>
+    <string name="descriptionColorButton10" translatable="false">Color 10</string>
+    <string name="descriptionColorButton11" translatable="false">Color 11</string>
+    <string name="descriptionColorButton12" translatable="false">Color 12</string>
+    <string name="descriptionColorButton13" translatable="false">Color 13</string>
+    <string name="descriptionColorButton14" translatable="false">Color 14</string>
+    <string name="descriptionColorButton15" translatable="false">Color 15</string>
+    <string name="descriptionColorButton16" translatable="false">Color 16</string>
+    <string name="descriptionTextScore" translatable="false">Score</string>
+    <string name="descriptionShare" translatable="false">Share</string>
+    <string name="descriptionReplay" translatable="false">Replay</string>
+    <string name="descriptionCounterBack" translatable="false">Counter back</string>
+    <string name="descriptionFakeButton1" translatable="false">Fake 1</string>
+    <string name="descriptionFakeButton2" translatable="false">Fake 2</string>
+    <string name="descriptionFakeButton3" translatable="false">Fake 3</string>
+    <string name="descriptionFakeButton4" translatable="false">Fake 4</string>
+    <string name="descriptionNextTip" translatable="false">Next Tip</string>
+    <string name="descriptionNextTipBackground" translatable="false">Next Tip Background</string>
+    <string name="descriptionFakeScore" translatable="false">Fake Score</string>
+    <string name="descriptionFakeExample" translatable="false">Fake Example</string>
+
+    <!-- Errors -->
+    <string name="errorNotImplemented">Function not implemented yet.</string>
+    <string name="errorLeaderboard">Sorry can\'t load Leaderboard Screen.</string>
+
+    <!--app_id-->
+    <string name="app_id" translatable="false">749115142142</string>
+    <!--package_name-->
+    <string name="package_name" translatable="false">com.loredo.pressthebutton</string>
+    <!--leaderboard Mejores Puntuaciones-->
+    <string name="leaderboard_mejores_puntuaciones" translatable="false">CgkI_t_31eYVEAIQAA</string>
+    <!-- Ads -->
+    <string name="textAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
+
+</resources>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelpActivity">
+
+    <TextView
+        android:id="@+id/tvPointsEx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/ActionBarBackground"
+        android:contentDescription="@string/descriptionFakeScore"
+        android:elevation="10dp"
+        android:outlineProvider="background"
+        android:text="@string/textPoints"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ivExampleEx"
+        style="@style/ButtonShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="100dp"
+        android:height="100dp"
+        android:backgroundTint="#faf271"
+        android:contentDescription="@string/descriptionFakeExample"
+        android:enabled="false"
+        android:text="@string/textNone"
+        android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:textStyle="bold"
+        app:cornerRadius="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPointsEx"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ProgressBar
+        android:id="@+id/pbSecondEx"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:max="1000"
+        android:progress="500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivExampleEx" />
+
+    <ProgressBar
+        android:id="@+id/pbMinuteEx"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:max="60000"
+        android:progress="20000"
+        app:layout_constraintBottom_toTopOf="@id/tlButtonsEx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pbSecondEx" />
+
+    <TableLayout
+        android:id="@+id/tlButtonsEx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pbMinuteEx">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/ibEx1"
+                style="@style/ButtonShadow"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#888888"
+                android:contentDescription="@string/descriptionFakeButton1"
+                android:enabled="false"
+                android:text="@string/textNone"
+                android:textIsSelectable="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/ibEx2"
+                style="@style/ButtonShadow"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#faf271"
+                android:contentDescription="@string/descriptionFakeButton2"
+                android:enabled="false"
+                android:text="@string/textNone"
+                android:textIsSelectable="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/ibEx3"
+                style="@style/ButtonShadow"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#e5b463"
+                android:contentDescription="@string/descriptionFakeButton3"
+                android:enabled="false"
+                android:text="@string/textNone"
+                android:textIsSelectable="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/ibEx4"
+                style="@style/ButtonShadow"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:backgroundTint="#9d6da5"
+                android:contentDescription="@string/descriptionFakeButton4"
+                android:enabled="false"
+                android:text="@string/textNone"
+                android:textIsSelectable="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <FrameLayout
+        android:id="@+id/flBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grayOverlay"
+        android:clickable="true"
+        android:contentDescription="@string/descriptionNextTipBackground"
+        android:focusable="true"
+        android:hapticFeedbackEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnNextHint"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/ActionBarBackground"
+        android:backgroundTintMode="src_in"
+        android:freezesText="true"
+        android:gravity="top"
+        android:hapticFeedbackEnabled="true"
+        android:text="@string/textHint1"
+        android:textColor="@color/ForegroundColor"
+        app:constraint_referenced_tags="@string/descriptionNextTip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlButtonsEx"
+        tools:ignore="TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

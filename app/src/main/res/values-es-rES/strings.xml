@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pulsa El Color</string>
+    <string name="textPoints">Puntos: %d</string>
+    <string name="textEnd">Fin: %d</string>
+    <string name="textPlay">Jugar</string>
+    <string name="textSubmit">Enviar Puntuación</string>
+    <string name="textLeaderboard">Marcadores</string>
+    <string name="textbtnShare">Compartir</string>
+    <string name="textReplay">Jugar</string>
+    <string name="textShare">¡¡He conseguido %d puntos en el juego Pulsa el Color!!</string>
+    <string name="textLoadAd">Cargando…</string>
+    <string name="textToastAd">No se pudo cargar el anuncio</string>
+    <string name="app_first_word">Pulsa</string>
+    <string name="app_second_word">El</string>
+    <string name="app_third_word">Color</string>
+    <string name="textHint1">Estos son los puntos que has obtenido hasta el momento.\nCuantos más puntos obtengas, más difícil será el juego.</string>
+    <string name="textHint2">Este es el color que debes buscar en las figuras de abajo.</string>
+    <string name="textHint3">Este es el tiempo restante para encontrar y pulsar el color correcto, tan solo tienes 2 segundos.</string>
+    <string name="textHint4">Este es el tiempo total de juego. Tienes 1 minuto para conseguir la mayor puntuación posible.</string>
+    <string name="textHint5">Estos son los colores que puedes pulsar.\nAsegúrate de pulsar el color correcto o terminará la partida.</string>
+    <string name="textHintReturn">Atrás</string>
+    <string name="textSettings">Configuración</string>
+    <string name="textNightMode">Modo noche</string>
+    <string name="textSound">Habilitar música</string>
+    <string name="textTotalGames">Partidas jugadas: %d</string>
+    <string name="textGamesFinished">Partidas acabadas: %d</string>
+    <string name="textMedianPressTime">Tiempo medio de pulsación: %.4f s</string>
+    <string name="textLastMedianPressTime">Tiempo medio de pulsación de la última partida: %.4f s</string>
+    <string name="textBestScore">Mejor puntuación: %d puntos</string>
+    <string name="textStats">Estadísticas</string>
+    <string name="textFX">Efectos de sonido</string>
+    <string name="textBtnCredits">Créditos</string>
+    <string name="errorLeaderboard">No se pudo cargar la tabla de marcadores.</string>
+    <string name="errorNotImplemented">Función no implementada aún.</string>
+</resources>
