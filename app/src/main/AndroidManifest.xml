@@ -26,12 +26,12 @@
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
-            android:hardwareAccelerated="true"
+            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".HelpActivity"
             android:exported="false"
-            android:hardwareAccelerated="false"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PressTheButton.NoActionBar" />
         <activity

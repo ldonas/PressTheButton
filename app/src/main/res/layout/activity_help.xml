@@ -53,18 +53,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivExampleEx" />
 
-    <ProgressBar
-        android:id="@+id/pbMinuteEx"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        android:max="60000"
-        android:progress="20000"
-        app:layout_constraintBottom_toTopOf="@id/tlButtonsEx"
+    <LinearLayout
+        android:id="@+id/llMinuteEx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbSecondEx" />
+        app:layout_constraintTop_toBottomOf="@+id/pbSecondEx">
+
+        <TextView
+            android:id="@+id/tvSecondsCountEx"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="40 s"
+            android:textColor="@color/ForegroundColor"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/pbMinuteEx"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="300dp"
+            android:layout_height="20dp"
+            android:max="60000"
+            android:progress="20000" />
+    </LinearLayout>
 
     <TableLayout
         android:id="@+id/tlButtonsEx"
@@ -73,7 +90,7 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pbMinuteEx">
+        app:layout_constraintTop_toBottomOf="@id/llMinuteEx">
 
         <TableRow
             android:layout_width="wrap_content"

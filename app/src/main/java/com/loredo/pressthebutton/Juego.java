@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +40,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     private ProgressBar _pbarSecond, _pbarMinute;
 
     private TableLayout _tlColors;
-    private LinearLayout _llBottom;
+    private LinearLayout _llBottom, _llExample;
 
     private final ArrayList<Button> _visibleButtons = new ArrayList<>();
     private final ArrayList<Integer> _points = new ArrayList<>();
@@ -60,6 +64,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             long delta = System.currentTimeMillis() - _lastPulse;
             if(delta > _MAXTIMEPULSE) {
                 _pbarSecond.setProgress((int)delta,false);
+                _tvSecondsCount.setText(getString(R.string.textTimeFinished));
                 EndGame(true);
                 return;
             }
@@ -102,7 +107,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             {
                 delta = _MAXTIMEGAME;
                 _pbarMinute.setProgress((int)delta,true);
-                _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),0));
+                _tvSecondsCount.setText(getString(R.string.textTimeFinished));
                 EndGame(false);
             }
             else
@@ -122,6 +127,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_juego);
 
         _anim = AnimationUtils.loadAnimation(this, R.anim.small);
+        _llExample = findViewById(R.id.llExample);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         _bFX = sp.getBoolean(getString(R.string.idFX), true);
@@ -412,6 +418,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
             if(_bFX)
                 MediaPlay.PlayFail();
+            _tvPoints.setText(String.format(getResources().getString(R.string.textFail), GetPoints()));
             mImageView.startAnimation(animShake);
             _tlColors.startAnimation(animShake);
             EndGame(true);

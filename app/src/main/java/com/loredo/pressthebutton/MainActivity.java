@@ -2,10 +2,13 @@ package com.loredo.pressthebutton;
 
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static int ad = 0;
     private Button _btnPlay, _btnLeaderboard, _btnHelp, _btnSettings, _btnStats, _btnCredits, _btnSignIn;
-    private boolean _launchedIntent = false;
+    private boolean _launchedIntent = false, _launchHelp = true;
     public static InterstitialAd mInterstitialAd;
     private ConsentForm _consentForm;
     public static AdRequest.Builder adRequest;
@@ -64,17 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SetSettings();
 
-        MobileAds.initialize(this, initializationStatus -> {
-            RequestConfiguration configuration = new RequestConfiguration.Builder()
-                    .setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
-                    .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_FALSE)
-                    .build();
-            MobileAds.setRequestConfiguration(configuration);
-            MobileAds.setAppMuted(true);
-            MobileAds.setAppVolume(0.0f);
-
-            LoadAds();
-        });
+        MobileAds.initialize(this, initializationStatus -> LoadAds());
     }
 
     private void SetSettings()
@@ -103,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .putInt(getString(R.string.idLastVersion),BuildConfig.VERSION_CODE)
                     .putBoolean(getString(R.string.idConsent), false)
                     .apply();
+
+            _launchHelp = true;
 
             //GetAdsConsent();
         }
@@ -196,7 +191,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view.getId() == _btnPlay.getId()) {
-            if(ad != 52 && mInterstitialAd != null){
+            if(_launchHelp)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage(R.string.textTutorialQuestion)
+                        .setPositiveButton(R.string.textYes, (dialog, id) -> {
+                            _launchedIntent = true;
+                            _launchHelp = false;
+                            Intent i = new Intent(MainActivity.this, HelpActivity.class);
+                            startActivity(i);
+                        })
+                        .setNegativeButton(R.string.textNo, (dialog, id) -> {
+                            _launchHelp = false;
+                            PlayGame();
+                        });
+                builder.create().show();
+            }
+            else if(ad != 52 && mInterstitialAd != null){
                     mInterstitialAd.show(MainActivity.this);
                     ad = 52;
             }

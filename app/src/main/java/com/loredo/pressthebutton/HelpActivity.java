@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class HelpActivity extends AppCompatActivity {
     private Button _btnExampleEx;
     private Button _btnNextHint;
     private TableLayout _tlButtons;
+    private LinearLayout _llMinutes;
     private ProgressBar _pbSecond, _pbMinute;
 
     private int _iHint = 0;
@@ -32,6 +34,7 @@ public class HelpActivity extends AppCompatActivity {
         _btnExampleEx = findViewById(R.id.ivExampleEx);
         _tlButtons = findViewById(R.id.tlButtonsEx);
         _pbSecond = findViewById(R.id.pbSecondEx);
+        _llMinutes = findViewById(R.id.llMinuteEx);
         _pbMinute = findViewById(R.id.pbMinuteEx);
         _btnNextHint = findViewById(R.id.btnNextHint);
         _btnNextHint.setOnClickListener(view -> NextHint());
@@ -61,14 +64,14 @@ public class HelpActivity extends AppCompatActivity {
             else if(_iHint == 2) {
                 _pbSecond.setElevation(0);
                 _pbSecond.setBackgroundColor(_bgTransparent);
-                _pbMinute.setElevation(10);
-                _pbMinute.setBackgroundColor(_bgSelected);
+                _llMinutes.setElevation(10);
+                _llMinutes.setBackgroundColor(_bgSelected);
                 _btnNextHint.setText(getString(R.string.textHint4));
                 _iHint++;
             }
             else if(_iHint == 3) {
-                _pbMinute.setElevation(0);
-                _pbMinute.setBackgroundColor(_bgTransparent);
+                _llMinutes.setElevation(0);
+                _llMinutes.setBackgroundColor(_bgTransparent);
                 _tlButtons.setElevation(10);
                 _tlButtons.setBackgroundColor(_bgSelected);
                 _btnNextHint.setText(getString(R.string.textHint5));

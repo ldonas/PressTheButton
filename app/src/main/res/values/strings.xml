@@ -13,11 +13,15 @@
     <string name="textLoadAd">Loading…</string>
     <string name="textToastAd">Can\'t load Ad</string>
     <string name="textVersion" translatable="false">0.0</string>
+    <string name="textTutorialQuestion">Do you want to see the tutorial?</string>
+    <string name="textYes">Yes</string>
+    <string name="textNo">No</string>
     <!-- Game -->
     <string name="textPoints">Score: %d</string>
     <string name="textFail">Failed!: %d</string>
     <string name="textEnd">End: %d</string>
     <string name="textSecondsCount" translatable="false">%d s</string>
+    <string name="textTimeFinished">Timeout!</string>
     <string name="textSubmit">Submit Score</string>
     <string name="textbtnShare">Share</string>
     <string name="textReplay">Replay</string>

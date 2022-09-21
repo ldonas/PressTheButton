@@ -36,7 +36,7 @@
         <Button
             android:id="@+id/ivExample"
             style="@style/ButtonShadow"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_weight="1"
             android:width="50dp"
@@ -46,7 +46,7 @@
             android:hapticFeedbackEnabled="true"
             android:maxWidth="100dp"
             android:maxHeight="100dp"
-            android:minWidth="50dp"
+            android:minWidth="100dp"
             android:minHeight="50dp"
             android:text="@string/textNone"
             android:textAlignment="center"
@@ -75,7 +75,6 @@
             android:id="@+id/tvSecondsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/textSecondsCount"
             android:textColor="@color/ForegroundColor"
             android:visibility="invisible" />
@@ -85,7 +84,6 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="300dp"
             android:layout_height="17dp"
-            android:layout_weight="2"
             android:progressTint="@color/pbMinuteAfterColor"
             android:progressTintMode="src_in"
             android:visibility="invisible" />

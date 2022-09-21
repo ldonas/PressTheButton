@@ -38,4 +38,8 @@
     <string name="textResetStatsQuestion">¿Seguro que quieres reiniciar las estadísticas?</string>
     <string name="textbtnResetAccept">Seguro</string>
     <string name="textbtnResetCancel">Volver</string>
+    <string name="textTimeFinished">¡Se acabó el tiempo!</string>
+    <string name="textTutorialQuestion">¿Quieres ver el tutorial?</string>
+    <string name="textYes">Sí</string>
+    <string name="textNo">No</string>
 </resources>

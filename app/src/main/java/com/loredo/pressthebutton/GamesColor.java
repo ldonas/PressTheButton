@@ -22,8 +22,6 @@ public class GamesColor {
             Color.parseColor("#75ad74"), /*15. Verde Oscuro*/
             Color.parseColor("#545454")  /*16. Gris Oscuro*/};
 
-    private int _less = 0;
-
     public static int MaxColor() {return _COLORS.length;}
 
     public static int GetColor(int colorNumber) {
@@ -52,6 +50,9 @@ public class GamesColor {
 
     public static int ColorLerp(int before, int after, int steps, int totalSteps)
     {
+        if(steps <= 0) return before;
+        if(steps >= totalSteps) return after;
+
         int beforeAlpha = (before >> 24) & 0xff; // or color >>> 24
         int beforeRed = (before >> 16) & 0xff;
         int beforeGreen = (before >>  8) & 0xff;
