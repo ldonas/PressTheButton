@@ -34,6 +34,10 @@
     <string name="textMedianPressTime">Average press time: %.4f s</string>
     <string name="textLastMedianPressTime">Last average press time: %.4f s</string>
     <string name="textBestScore">Best score: %d points</string>
+    <string name="textBtnResetStats">Reset Stats</string>
+    <string name="textResetStatsQuestion">Are you sure?</string>
+    <string name="textbtnResetAccept">Sure!</string>
+    <string name="textbtnResetCancel">Go back!</string>
     <!-- Preferences -->
     <string name="textSettings">Settings</string>
     <string name="textNightMode">Night mode</string>
@@ -49,6 +53,9 @@
     <string name="idGamesFinished" translatable="false">GamesFinished</string>
     <string name="idBestScore" translatable="false">BestScore</string>
     <string name="idFirstTime" translatable="false">FirstTime</string>
+    <string name="idLastVersion" translatable="false">LastVersion</string>
+    <string name="idConsent" translatable="false">Consent</string>
+    <string name="URLPrivacy" translatable="false">https://agrosemillasgenetic.es/politica-de-privacidad-lorenzo-php/</string>
     <!-- Credits -->
     <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.
         By Frankum &amp; Frankumjay.
@@ -124,7 +131,9 @@
     <!--leaderboard Mejores Puntuaciones-->
     <string name="leaderboard_mejores_puntuaciones" translatable="false">CgkI_t_31eYVEAIQAA</string>
     <!-- Ads -->
-    <string name="textInterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
-    <string name="textBannerAdUnitID" translatable="false">ca-app-pub-3987144895253056/4923205061</string>
+    <string name="AppIdAds" translatable="false">ca-app-pub-3987144895253056~9864616531</string>
+    <string name="InterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
+    <string name="AppIdAdsDebug" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="InterstitialAdUnitIDDebug" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 
 </resources>

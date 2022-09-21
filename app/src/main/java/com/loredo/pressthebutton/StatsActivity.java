@@ -2,13 +2,17 @@ package com.loredo.pressthebutton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class StatsActivity extends AppCompatActivity {
@@ -47,6 +51,30 @@ public class StatsActivity extends AppCompatActivity {
         _tvMedianPress.setText(String.format(getString(R.string.textMedianPressTime), medianPress));
         TextView _tvLastMedianPress = findViewById(R.id.tvLastMedianPress);
         _tvLastMedianPress.setText(String.format(getString(R.string.textLastMedianPressTime),lastMedianPress));
+        Button _btnResetStats = findViewById(R.id.btnResetStats);
+
+        _btnResetStats.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(StatsActivity.this);
+            builder.setMessage(R.string.textResetStatsQuestion)
+                    .setPositiveButton(R.string.textbtnResetAccept, (dialog, id) -> {
+                        sp.edit().putLong(getString(R.string.idTotalGames), 0L)
+                                .putLong(getString(R.string.idGamesFinished), 0L)
+                                .putLong(getString(R.string.idBestScore), 0L)
+                                .putLong(getString(R.string.idAverageTimePress), 0L)
+                                .putLong(getString(R.string.idLastAverageTimePress), 0L)
+                                .apply();
+                        _bBackPressed = true;
+                        Update();
+                    })
+                    .setNegativeButton(R.string.textbtnResetCancel, (dialog, id) -> {
+                        // User cancelled the dialog
+                    });
+            builder.create().show();
+        });
+    }
+
+    private void Update() {
+        this.recreate();
     }
 
     @Override

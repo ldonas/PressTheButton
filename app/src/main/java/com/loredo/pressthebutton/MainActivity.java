@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -17,24 +16,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
-import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.google.android.gms.games.GamesSignInClient;
-import com.google.android.gms.games.PlayGames;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.games.PlayGamesSdk;
+import com.google.android.ump.ConsentForm;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -42,15 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button _btnPlay, _btnLeaderboard, _btnHelp, _btnSettings, _btnStats, _btnCredits, _btnSignIn;
     private boolean _launchedIntent = false;
     public static InterstitialAd mInterstitialAd;
-    public static AdManagerAdRequest.Builder adRequest;
-    public static GamesSignInClient gamesSignInClient;
+    private ConsentForm _consentForm;
+    public static AdRequest.Builder adRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //PlayGamesSdk.initialize(this);
 
         _btnPlay = findViewById(R.id.btnPlay);
         _btnPlay.setOnClickListener(this);
@@ -68,22 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         _tvVersion.setText(BuildConfig.VERSION_NAME);
         _btnSignIn = findViewById(R.id.btnSignIn);
 
-        MobileAds.initialize(this, initializationStatus -> LoadAds());
-
         SetSettings();
 
-        /*gamesSignInClient = PlayGames.getGamesSignInClient(this);
+        MobileAds.initialize(this, initializationStatus -> {
+            RequestConfiguration configuration = new RequestConfiguration.Builder()
+                    .setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_FALSE)
+                    .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_FALSE)
+                    .build();
+            MobileAds.setRequestConfiguration(configuration);
+            MobileAds.setAppMuted(true);
+            MobileAds.setAppVolume(0.0f);
 
-        gamesSignInClient.isAuthenticated().addOnCompleteListener(isAuthenticatedTask -> {
-            boolean isAuthenticated =
-                    (isAuthenticatedTask.isSuccessful() &&
-                            isAuthenticatedTask.getResult().isAuthenticated());
-
-            if (isAuthenticated)
-                _btnLeaderboard.setVisibility(View.VISIBLE);
-            else
-                _btnSignIn.setVisibility(View.VISIBLE);
-        });*/
+            LoadAds();
+        });
     }
 
     private void SetSettings()
@@ -109,9 +100,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .putLong(getString(R.string.idBestScore),0L)
                     .putBoolean(getString(R.string.idMusic), true)
                     .putBoolean(getString(R.string.idFX), true)
+                    .putInt(getString(R.string.idLastVersion),BuildConfig.VERSION_CODE)
+                    .putBoolean(getString(R.string.idConsent), false)
                     .apply();
 
-            requestPermissions(new String[]{Manifest.permission.VIBRATE}, 1001);
+            //GetAdsConsent();
         }
         else {
             boolean nightMode = sp.getBoolean(getString(R.string.idNightMode), false);
@@ -119,6 +112,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             else
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+/*
+            if(!sp.getBoolean(getString(R.string.idConsent), false))
+            {
+                GetAdsConsent();
+            }*/
         }
 
         if(sp.getBoolean(getString(R.string.idMusic), true))
@@ -129,10 +127,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void LoadAds()
     {
-        adRequest = new AdManagerAdRequest.Builder();
-        adRequest.setHttpTimeoutMillis(60000);
+        adRequest = new AdRequest.Builder();
 
-        InterstitialAd.load(this, getString(R.string.textInterstitialAdUnitID), adRequest.build(),
+        Bundle extras = new Bundle();
+        extras.putString("npa", "1");
+
+        adRequest.addNetworkExtrasBundle(AdMobAdapter.class, extras);
+
+        InterstitialAd.load(this, getString(R.string.InterstitialAdUnitID), adRequest.build(),
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -143,7 +145,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        ad = 52;
+                        Log.println(Log.ERROR, "AD ERROR", loadAdError.getMessage());
+                        try {
+                            wait(5000L);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        LoadAds();
+                        //ad = 52;
                         mInterstitialAd = null;
                     }
                 });
@@ -202,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(view.getId() == _btnLeaderboard.getId()) {
             _launchedIntent = true;
-            showLeaderboard();
         }
         else if(view.getId() == _btnCredits.getId())
         {
@@ -220,15 +228,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
         }
-    }
-
-    private void showLeaderboard() {
-        PlayGames.getLeaderboardsClient(this)
-                .getLeaderboardIntent(getString(R.string.leaderboard_mejores_puntuaciones))
-                .addOnSuccessListener(intent -> registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                    Toast.makeText(getApplicationContext(),getString(R.string.errorNotImplemented),Toast.LENGTH_LONG).show();
-                    _btnLeaderboard.setVisibility(View.GONE);
-                })).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),getString(R.string.errorLeaderboard),Toast.LENGTH_LONG).show());
     }
 
     private void PlayGame() {

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
-import com.google.android.gms.games.LeaderboardsClient;
-import com.google.android.gms.games.PlayGames;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,10 +148,8 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         _btnReplay = findViewById(R.id.btnReplay);
         _btnReplay.setOnClickListener(view -> Replay());
-        _btnReplay.setVisibility(View.GONE);
         _btnShare = findViewById(R.id.btnShare);
         _btnShare.setOnClickListener(this);
-        _btnShare.setVisibility(View.GONE);
         _tvSecondsCount = findViewById(R.id.tvSecondsCount);
 
         Button _btnShare = findViewById(R.id.btnShare);
@@ -164,7 +160,6 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         });
-        _btnShare.setVisibility(View.GONE);
 
         _pbSecondBefore = getResources().getColor(R.color.pbSecondBeforeColor, getTheme());
         _pbSecondAfter = getResources().getColor(R.color.pbSecondAfterColor, getTheme());
@@ -181,59 +176,45 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         _ib1x3 = findViewById(R.id.ib1x3);
         _ib1x3.setOnClickListener(this);
-        _ib1x3.setVisibility(View.GONE);
 
         _ib1x4 = findViewById(R.id.ib1x4);
         _ib1x4.setOnClickListener(this);
-        _ib1x4.setVisibility(View.GONE);
 
         _ib2x1 = findViewById(R.id.ib2x1);
         _ib2x1.setOnClickListener(this);
-        _ib2x1.setVisibility(View.GONE);
 
         _ib2x2 = findViewById(R.id.ib2x2);
         _ib2x2.setOnClickListener(this);
-        _ib2x2.setVisibility(View.GONE);
 
         _ib2x3 = findViewById(R.id.ib2x3);
         _ib2x3.setOnClickListener(this);
-        _ib2x3.setVisibility(View.GONE);
 
         _ib2x4 = findViewById(R.id.ib2x4);
         _ib2x4.setOnClickListener(this);
-        _ib2x4.setVisibility(View.GONE);
 
         _ib3x1 = findViewById(R.id.ib3x1);
         _ib3x1.setOnClickListener(this);
-        _ib3x1.setVisibility(View.GONE);
 
         _ib3x2 = findViewById(R.id.ib3x2);
         _ib3x2.setOnClickListener(this);
-        _ib3x2.setVisibility(View.GONE);
 
         _ib3x3 = findViewById(R.id.ib3x3);
         _ib3x3.setOnClickListener(this);
-        _ib3x3.setVisibility(View.GONE);
 
         _ib3x4 = findViewById(R.id.ib3x4);
         _ib3x4.setOnClickListener(this);
-        _ib3x4.setVisibility(View.GONE);
 
         _ib4x1 = findViewById(R.id.ib4x1);
         _ib4x1.setOnClickListener(this);
-        _ib4x1.setVisibility(View.GONE);
 
         _ib4x2 = findViewById(R.id.ib4x2);
         _ib4x2.setOnClickListener(this);
-        _ib4x2.setVisibility(View.GONE);
 
         _ib4x3 = findViewById(R.id.ib4x3);
         _ib4x3.setOnClickListener(this);
-        _ib4x3.setVisibility(View.GONE);
 
         _ib4x4 = findViewById(R.id.ib4x4);
         _ib4x4.setOnClickListener(this);
-        _ib4x4.setVisibility(View.GONE);
 
         if(_bFX)
         {
@@ -415,7 +396,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             long now = System.currentTimeMillis();
             long delta = now - _lastPulse;
             _lastPulse = now;
-            float multiplier = ((float)(_MAXTIMEPULSE - (delta))) / 1000f;
+            float multiplier = ((float)(_MAXTIMEPULSE - (delta))) / 1000.0f;
             _points.add(_visibleButtons.size());
             _multipliers.add(multiplier);
             _tvPoints.setText(String.format(getResources().getString(R.string.textPoints), GetPoints()));
@@ -481,14 +462,14 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             gamesFinished++;
             sp.edit().putLong(getString(R.string.idGamesFinished), gamesFinished).apply();
         }
-        /*if(GetPoints() > 0) {
-            mImageView.setText(getString(R.string.textSubmit));
+        if(GetPoints() > 0) {
+            /*mImageView.setText(getString(R.string.textSubmit));
             mImageView.setEnabled(true);
             mImageView.setTextColor(GamesColor.TextColorInverted(GamesColor.GetColor(_colorButtons[16])));
-            mImageView.setOnClickListener(view -> SubmitScore());
+            mImageView.setOnClickListener(view -> SubmitScore());*/
 
             _btnShare.setVisibility(View.VISIBLE);
-        }*/
+        }
         _llBottom.setVisibility(View.VISIBLE);
 
         _btnReplay.setVisibility(View.VISIBLE);
@@ -509,12 +490,6 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             points += (float)_points.get(i) * _multipliers.get(i);
         }
         return (long) points;
-    }
-
-    private void SubmitScore()
-    {
-        LeaderboardsClient lbc = PlayGames.getLeaderboardsClient(this);
-        lbc.submitScore(getString(R.string.leaderboard_mejores_puntuaciones), GetPoints());
     }
 
     @Override
