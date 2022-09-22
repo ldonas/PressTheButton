@@ -14,42 +14,34 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.PressTheButton"
-        android:hardwareAccelerated="true"
         tools:targetApi="33">
         <activity
             android:name=".CreditsActivity"
-            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".StatsActivity"
-            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
-            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".HelpActivity"
             android:exported="false"
-            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PressTheButton.NoActionBar" />
         <activity
             android:name=".Leaderboard"
-            android:hardwareAccelerated="false"
             android:exported="false" />
         <activity
             android:name=".Juego"
             android:exported="false"
-            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PressTheButton.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.PressTheButton.NoActionBar"
-            android:hardwareAccelerated="true">
+            android:theme="@style/Theme.PressTheButton.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

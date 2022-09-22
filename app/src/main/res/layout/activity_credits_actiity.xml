@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -25,7 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
-                android:elegantTextHeight="false"
+                android:elegantTextHeight="true"
+                android:gravity="center"
                 android:linksClickable="true"
                 android:text="@string/textCredits"
                 android:textAlignment="center"

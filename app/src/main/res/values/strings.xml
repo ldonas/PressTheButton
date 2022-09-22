@@ -61,29 +61,7 @@
     <string name="idConsent" translatable="false">Consent</string>
     <string name="URLPrivacy" translatable="false">https://agrosemillasgenetic.es/politica-de-privacidad-lorenzo-php/</string>
     <!-- Credits -->
-    <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.
-        By Frankum &amp; Frankumjay.
-        https://freesound.org/people/frankum/sounds/382931
-        \n
-        Menu Music: Possible Loading Screen Music
-        By CrushedLoops
-        https://freesound.org/people/CrushedLoops/sounds/612848
-        \n
-        Sound Success: UI Pop Up
-        By EminYILDIRIM
-        https://freesound.org/people/EminYILDIRIM/sounds/540568
-        \n
-        Sound Failure: UI Sound 13
-        By Nezuai
-        https://freesound.org/people/nezuai/sounds/577024
-        \n
-        Sound Counter Back: Score Counter 01
-        By Rhodesmas
-        https://freesound.org/people/rhodesmas/sounds/342759
-        \n
-        All Icons are included in the Android Studio Software
-        \n
-        The rest: Lorenzo Doñas Rodríguez</string>
+    <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.\nBy Frankum &amp; Frankumjay.\nhttps://freesound.org/people/frankum/sounds/382931\n\nMenu Music: Possible Loading Screen Music\nBy CrushedLoops\nhttps://freesound.org/people/CrushedLoops/sounds/612848\n\nSound Success: UI Pop Up\nBy EminYILDIRIM\nhttps://freesound.org/people/EminYILDIRIM/sounds/540568\n\nSound Failure: UI Sound 13\nBy Nezuai\nhttps://freesound.org/people/nezuai/sounds/577024\n\nSound Counter Back: Score Counter 01\nBy Rhodesmas\nhttps://freesound.org/people/rhodesmas/sounds/342759\n\nAll Icons are included in the Android Studio Software\n\nThe rest: Lorenzo Doñas Rodríguez</string>
 
     <!--Descripciones-->
     <string name="descriptionLogo" translatable="false">GameLogo</string>
@@ -136,7 +114,7 @@
     <string name="leaderboard_mejores_puntuaciones" translatable="false">CgkI_t_31eYVEAIQAA</string>
     <!-- Ads -->
     <string name="AppIdAds" translatable="false">ca-app-pub-3987144895253056~9864616531</string>
-    <string name="InterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/7238453195</string>
+    <string name="InterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/6828572853</string>
     <string name="AppIdAdsDebug" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
     <string name="InterstitialAdUnitIDDebug" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 

@@ -523,11 +523,13 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onPause() {
         super.onPause();
-        if(!_bBackPressed) {
-            _handler.removeCallbacks(_rSeconds);
-            _handler.removeCallbacks(_rMinutes);
-            if(_bMusic)
-                MediaPlay.GameMusicPlayer(MediaPlay.STOP);
-        }
+        if(System.currentTimeMillis() - _startTime <= 0)
+            if(!_bBackPressed) {
+                _handler.removeCallbacks(_rSeconds);
+                _handler.removeCallbacks(_rMinutes);
+                finish();
+            }
+        if(_bMusic)
+            MediaPlay.GameMusicPlayer(MediaPlay.STOP);
     }
 }

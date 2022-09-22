@@ -103,4 +103,12 @@ public class HelpActivity extends AppCompatActivity {
             if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.idMusic), true))
                 MediaPlay.MenuMusicPlayer(MediaPlay.STOP);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.idMusic), true))
+            MediaPlay.MenuMusicPlayer(MediaPlay.PLAY);
+        _bBackPressed = false;
+    }
 }

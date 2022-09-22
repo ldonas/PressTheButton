@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static int ad = 0;
     private Button _btnPlay, _btnLeaderboard, _btnHelp, _btnSettings, _btnStats, _btnCredits, _btnSignIn;
-    private boolean _launchedIntent = false, _launchHelp = true;
+    private boolean _launchedIntent = false, _launchHelp = false;
     public static InterstitialAd mInterstitialAd;
     private ConsentForm _consentForm;
     public static AdRequest.Builder adRequest;
