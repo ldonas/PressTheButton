@@ -6,42 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".StatsActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <Button
+        android:id="@+id/btnTotalGames"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:text="@string/textTotalGames"
+        android:textIsSelectable="false"
+        app:cornerRadius="0dp"
+        app:iconTint="@color/ForegroundColorInverted"
+        app:iconTintMode="src_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/svTotalGames"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTotalGames">
 
         <LinearLayout
+            android:id="@+id/llTotalStats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvTotalGames"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/textTotalGames"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:autoSizeTextType="uniform" />
-
-            <TextView
-                android:id="@+id/tvGamesFinished"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/textGamesFinished"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:autoSizeTextType="uniform" />
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvBestScore"
@@ -55,26 +48,102 @@
                 app:autoSizeTextType="uniform" />
 
             <TextView
-                android:id="@+id/tvMedianPress"
+                android:id="@+id/tvTotalAveragePress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/textMedianPressTime"
+                android:text="@string/textAveragePressTime"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
 
             <TextView
-                android:id="@+id/tvLastMedianPress"
+                android:id="@+id/tvTotalBestPressTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/textLastMedianPressTime"
+                android:text="@string/textBestPressTime"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/tvTotalLastPressTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/textLastPressTime"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnGamesFinished"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:text="@string/textGamesFinished"
+        app:cornerRadius="0dp"
+        app:iconTint="@color/ForegroundColorInverted"
+        app:iconTintMode="src_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svTotalGames" />
+
+    <ScrollView
+        android:id="@+id/svGamesFinished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGamesFinished">
+
+        <LinearLayout
+            android:id="@+id/llFinishedStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvFinishedAveragePress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/textAveragePressTime"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/tvFinishedBestPressTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/textBestPressTime"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/tvFinishedLastPressTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/textLastPressTime"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -85,6 +154,7 @@
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="@string/textBtnResetStats"
+        app:cornerRadius="0dp"
         app:icon="@drawable/ic_baseline_autorenew"
         app:iconGravity="textStart"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -31,6 +31,7 @@
     <color name="ActionBarBackground">@color/minusBlack</color>
     <color name="IconColor">@color/lightGray</color>
     <color name="ForegroundColor">@color/lightGray</color>
+    <color name="ForegroundColorInverted">@color/minusBlack</color>
     <color name="pbSecondAfterColor">@color/red</color>
     <color name="pbSecondBeforeColor">@color/lightGreen</color>
     <color name="pbMinuteAfterColor">@color/lightGreen</color>

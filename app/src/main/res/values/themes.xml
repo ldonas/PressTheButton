@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.PressTheButton" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_700</item>
@@ -33,6 +33,7 @@
     <color name="ActionBarBackground">@color/lightGray</color>
     <color name="IconColor">@color/mediumGray</color>
     <color name="ForegroundColor">@color/minusBlack</color>
+    <color name="ForegroundColorInverted">@color/lightGray</color>
     <color name="pbSecondAfterColor">@color/darkRed</color>
     <color name="pbSecondBeforeColor">@color/mediumGreen</color>
     <color name="pbMinuteAfterColor">@color/mediumGreen</color>

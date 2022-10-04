@@ -8,7 +8,7 @@
     <string name="textLeaderboard">Marcadores</string>
     <string name="textbtnShare">Compartir</string>
     <string name="textReplay">Jugar</string>
-    <string name="textShare">¡¡He conseguido %d puntos en el juego Pulsa el Color!!</string>
+    <string name="textShare">¡¡He conseguido %d puntos en el juego Pulsa el Color!! Descárgalo en https://play.google.com/store/apps/details?id=com.loredo.pressthebutton</string>
     <string name="textLoadAd">Cargando…</string>
     <string name="textToastAd">No se pudo cargar el anuncio</string>
     <string name="app_first_word">Pulsa</string>
@@ -25,8 +25,8 @@
     <string name="textSound">Habilitar música</string>
     <string name="textTotalGames">Partidas jugadas: %d</string>
     <string name="textGamesFinished">Partidas acabadas: %d</string>
-    <string name="textMedianPressTime">Tiempo medio de pulsación: %.4f s</string>
-    <string name="textLastMedianPressTime">Tiempo medio de pulsación de la última partida: %.4f s</string>
+    <string name="textAveragePressTime">Tiempo medio de pulsación: %.4f s</string>
+    <string name="textLastPressTime">Tiempo de la última partida: %.4f s</string>
     <string name="textBestScore">Mejor puntuación: %d puntos</string>
     <string name="textStats">Estadísticas</string>
     <string name="textFX">Efectos de sonido</string>
@@ -42,4 +42,5 @@
     <string name="textTutorialQuestion">¿Quieres ver el tutorial?</string>
     <string name="textYes">Sí</string>
     <string name="textNo">No</string>
+    <string name="textBestPressTime">Mejor tiempo: %0.4f s</string>
 </resources>

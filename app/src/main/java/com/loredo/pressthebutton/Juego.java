@@ -1,17 +1,14 @@
 package com.loredo.pressthebutton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,9 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class Juego extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mImageView;
+    private Button _ivExampleColor;
     private Button _ib1x1,_ib1x2,_ib1x3,_ib1x4,
                       _ib2x1,_ib2x2,_ib2x3,_ib2x4,
                       _ib3x1,_ib3x2,_ib3x3,_ib3x4,
@@ -46,7 +46,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     private final ArrayList<Integer> _points = new ArrayList<>();
     private final ArrayList<Float> _multipliers = new ArrayList<>();
     private final long _MAXTIMEPULSE = 2000L, _MAXTIMEGAME = 60000L;
-    private long _medianPressTime = 0L;
+    private long _averagePressTime = 0L;
     private boolean _bFX, _bMusic, _bBackPressed = false;
 
     private int[] _colorButtons = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
@@ -94,7 +94,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                     _tlColors.setVisibility(View.VISIBLE);
                     _pbarMinute.setVisibility(View.VISIBLE);
                     _pbarSecond.setVisibility(View.VISIBLE);
-                    mImageView.setVisibility(View.VISIBLE);
+                    _ivExampleColor.setVisibility(View.VISIBLE);
                     _tvPoints.setVisibility(View.VISIBLE);
                     _tvSecondsCount.setVisibility(View.VISIBLE);
                     NewColors();
@@ -106,7 +106,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             else if(delta > _MAXTIMEGAME)
             {
                 delta = _MAXTIMEGAME;
-                _pbarMinute.setProgress((int)delta,true);
+                _pbarMinute.setProgress((int)delta,false);
                 _tvSecondsCount.setText(getString(R.string.textTimeFinished));
                 EndGame(false);
             }
@@ -114,7 +114,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             {
                 int progressTint = GamesColor.ColorLerp(_pbMinuteBefore,_pbMinuteAfter,(int)delta,(int)_MAXTIMEGAME);
                 _pbarMinute.setProgressTintList(ColorStateList.valueOf(progressTint));
-                _pbarMinute.setProgress((int)delta, true);
+                _pbarMinute.setProgress((int)delta, false);
                 _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),((_MAXTIMEGAME - delta)/1000L)));
                 _handler.postDelayed(this,100);
             }
@@ -125,6 +125,9 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
+
+        if(MainActivity.ad == 3)
+            LoadAds();
 
         _anim = AnimationUtils.loadAnimation(this, R.anim.small);
         _llExample = findViewById(R.id.llExample);
@@ -138,8 +141,11 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         _pbarSecond = findViewById(R.id.pbSecond);
         _pbarSecond.setMax((int)_MAXTIMEPULSE);
+        _pbarSecond.setProgress(0, false);
+
         _pbarMinute = findViewById(R.id.pbMinute);
         _pbarMinute.setMax((int)_MAXTIMEGAME);
+        _pbarMinute.setProgress(0,false);
 
         _visibleButtons.clear();
         _points.clear();
@@ -148,7 +154,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _tvPoints.setText(String.format(getResources().getString(R.string.textPoints), GetPoints()));
         _tvCounter = findViewById(R.id.tvCounter);
 
-        mImageView = findViewById(R.id.ivExample);
+        _ivExampleColor = findViewById(R.id.ivExample);
 
         _tlColors = findViewById(R.id.tlColors);
 
@@ -259,6 +265,8 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             MainActivity.ad = 52;
         }
         else {
+            _pbarMinute.setProgress(0, false);
+            _pbarSecond.setProgress(0, false);
             this.recreate();
         }
     }
@@ -313,7 +321,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             _ib4x4.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[15])));
         }
 
-        mImageView.setBackgroundColor(GamesColor.GetColor(_colorButtons[16]));
+        _ivExampleColor.setBackgroundColor(GamesColor.GetColor(_colorButtons[16]));
     }
 
     private void NextLevel(){
@@ -406,7 +414,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             _points.add(_visibleButtons.size());
             _multipliers.add(multiplier);
             _tvPoints.setText(String.format(getResources().getString(R.string.textPoints), GetPoints()));
-            _medianPressTime = ((_medianPressTime * (_multipliers.size()-1)) + delta) / _multipliers.size();
+            _averagePressTime = ((_averagePressTime * (_multipliers.size()-1)) + delta) / _multipliers.size();
             if(_bFX)
                 MediaPlay.PlaySucceed();
             if(_visibleButtons.size() < 16)
@@ -419,7 +427,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             if(_bFX)
                 MediaPlay.PlayFail();
             _tvPoints.setText(String.format(getResources().getString(R.string.textFail), GetPoints()));
-            mImageView.startAnimation(animShake);
+            _ivExampleColor.startAnimation(animShake);
             _tlColors.startAnimation(animShake);
             EndGame(true);
         }
@@ -446,37 +454,54 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _ib4x3.setEnabled(false);
         _ib4x4.setEnabled(false);
 
-        _tvPoints.setText(String.format(getString(R.string.textEnd), GetPoints()));
+        if(fail)
+            _tvPoints.setText(String.format(getString(R.string.textFail), GetPoints()));
+        else
+            _tvPoints.setText(String.format(getString(R.string.textEnd), GetPoints()));
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         long totalGames = sp.getLong(getString(R.string.idTotalGames), 0L);
         totalGames++;
         sp.edit().putLong(getString(R.string.idTotalGames), totalGames).apply();
-        long bestScore = sp.getLong(getString(R.string.idBestScore), 0L);
-        if(GetPoints() > bestScore)
-        {
-            sp.edit().putLong(getString(R.string.idBestScore), GetPoints()).apply();
-        }
-        if(GetPoints() > 0)
-        {
-            sp.edit().putLong(getString(R.string.idLastAverageTimePress), _medianPressTime).apply();
-            long medianPress = sp.getLong(getString(R.string.idLastAverageTimePress), 0L);
-            medianPress = ((medianPress * (totalGames - 1)) + _medianPressTime) / totalGames;
-            sp.edit().putLong(getString(R.string.idAverageTimePress), medianPress).apply();
-        }
-        if(!fail) {
-            long gamesFinished = sp.getLong(getString(R.string.idGamesFinished), 0L);
-            gamesFinished++;
-            sp.edit().putLong(getString(R.string.idGamesFinished), gamesFinished).apply();
+        long bestScore = sp.getLong(getString(R.string.idTotalBestScore), 0L);
+        if(GetPoints() > bestScore) {
+            sp.edit().putLong(getString(R.string.idTotalBestScore), GetPoints()).apply();
         }
         if(GetPoints() > 0) {
-            /*mImageView.setText(getString(R.string.textSubmit));
-            mImageView.setEnabled(true);
-            mImageView.setTextColor(GamesColor.TextColorInverted(GamesColor.GetColor(_colorButtons[16])));
-            mImageView.setOnClickListener(view -> SubmitScore());*/
+            sp.edit().putLong(getString(R.string.idTotalLastPressTime), _averagePressTime).apply();
+            long totalBestPressTime = sp.getLong(getString(R.string.idTotalBestPressTime), Long.MAX_VALUE);
+            if(_averagePressTime < totalBestPressTime || totalBestPressTime == 0)
+                sp.edit().putLong(getString(R.string.idTotalBestPressTime), _averagePressTime).apply();
+            long totalAveragePress = sp.getLong(getString(R.string.idTotalAveragePressTime), 0L);
+            totalAveragePress = ((totalAveragePress * (totalGames - 1)) + _averagePressTime) / totalGames;
+            sp.edit().putLong(getString(R.string.idTotalAveragePressTime), totalAveragePress).apply();
+            if(!fail) {
+                long gamesFinished = sp.getLong(getString(R.string.idGamesFinished), 0L);
+                gamesFinished++;
+                sp.edit().putLong(getString(R.string.idGamesFinished), gamesFinished).apply();
+                long finishedBestPressTime = sp.getLong(getString(R.string.idFinishedBestPressTime), Long.MAX_VALUE);
+                if(_averagePressTime < finishedBestPressTime || finishedBestPressTime == 0)
+                    sp.edit().putLong(getString(R.string.idFinishedBestPressTime), _averagePressTime).apply();
+                long finishedAveragePress = sp.getLong(getString(R.string.idFinishedAveragePressTime), 0L);
+                finishedAveragePress = ((finishedAveragePress * (gamesFinished - 1)) + _averagePressTime) / gamesFinished;
+                sp.edit().putLong(getString(R.string.idFinishedAveragePressTime), finishedAveragePress).apply();
+                sp.edit().putLong(getString(R.string.idFinishedLastPressTime), _averagePressTime).apply();
+                long finishedBestScore = sp.getLong(getString(R.string.idFinishedBestScore), 0L);
+                if(GetPoints() > finishedBestScore)
+                    sp.edit().putLong(getString(R.string.idFinishedBestScore), GetPoints()).apply();
+            }
 
             _btnShare.setVisibility(View.VISIBLE);
         }
+
+        /*
+        if(GetPoints() > 0) {
+            mImageView.setText(getString(R.string.textSubmit));
+            mImageView.setEnabled(true);
+            mImageView.setTextColor(GamesColor.TextColorInverted(GamesColor.GetColor(_colorButtons[16])));
+            mImageView.setOnClickListener(view -> SubmitScore());
+        }*/
+
         _llBottom.setVisibility(View.VISIBLE);
 
         _btnReplay.setVisibility(View.VISIBLE);
@@ -497,6 +522,60 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             points += (float)_points.get(i) * _multipliers.get(i);
         }
         return (long) points;
+    }
+
+    private void LoadAds() {
+        InterstitialAd.load(this, getString(R.string.InterstitialAdUnitID), MainActivity.adRequest.build(),
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        MainActivity.mInterstitialAd = interstitialAd;
+                        FullScreenAd();
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        MainActivity.ad = 3;
+                        MainActivity.mInterstitialAd = null;
+                    }
+                });
+    }
+
+    private void FullScreenAd()
+    {
+        MainActivity.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+            @Override
+            public void onAdClicked() {
+                // Called when a click is recorded for an ad.
+                if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(getString(R.string.idMusic), true)) {
+                    MediaPlay.MenuMusicPlayer(MediaPlay.STOP);
+                    MediaPlay.GameMusicPlayer(MediaPlay.STOP);
+                }
+                MainActivity.ad = 52;
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                MainActivity.mInterstitialAd = null;
+                MainActivity.ad = 52;
+                Replay();
+            }
+
+            @Override
+            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                MainActivity.mInterstitialAd = null;
+            }
+
+            @Override
+            public void onAdImpression() {
+                // Called when an impression is recorded for an ad.
+            }
+
+            @Override
+            public void onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+            }
+        });
     }
 
     @Override

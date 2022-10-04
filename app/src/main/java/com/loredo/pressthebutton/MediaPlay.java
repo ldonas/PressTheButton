@@ -3,7 +3,7 @@ package com.loredo.pressthebutton;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.util.Log;
+import android.widget.Toast;
 
 public class MediaPlay {
     private static MediaPlayer _mpMenu, _mpGame, _mpSucceed, _mpFail, _mpCounterBack;
@@ -20,7 +20,7 @@ public class MediaPlay {
             try {
                 _mpGame = MediaPlayer.create(context, R.raw.music_frankum_vintage_techno_house_loop);
             } catch (Exception e) {
-                Log.println(Log.ERROR, "PlayMusic", e.getMessage());
+                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         if(_mpMenu == null)
@@ -28,7 +28,7 @@ public class MediaPlay {
                 _mpMenu = MediaPlayer.create(context, R.raw.crushedloops_possible_loading_screen_music);
                 _mpMenu.setOnPreparedListener(MediaPlayer::start);
             } catch (Exception e) {
-                Log.println(Log.ERROR, "PlayMusic", e.getMessage());
+                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
     }
 
@@ -40,21 +40,21 @@ public class MediaPlay {
             try {
                 _mpSucceed = MediaPlayer.create(context, R.raw.ui_success);
             } catch (Exception e) {
-                Log.println(Log.ERROR, "PlaySucceed", e.getMessage());
+                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         if(_mpFail == null)
             try {
                 _mpFail = MediaPlayer.create(context, R.raw.ui_fail);
             } catch (Exception e) {
-                Log.println(Log.ERROR, "PlayFail", e.getMessage());
+                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         if(_mpCounterBack == null)
             try{
                 _mpCounterBack = MediaPlayer.create(context, R.raw.ui_counter_back);
             } catch (Exception e) {
-                Log.println(Log.ERROR, "PlayCounterBack", e.getMessage());
+                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
     }
 

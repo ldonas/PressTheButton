@@ -25,7 +25,7 @@
     <string name="textSubmit">Submit Score</string>
     <string name="textbtnShare">Share</string>
     <string name="textReplay">Replay</string>
-    <string name="textShare">I Score %d points in Press The Color game!!</string>
+    <string name="textShare">I Score %d points in Press The Color game!! Download at https://play.google.com/store/apps/details?id=com.loredo.pressthebutton</string>
     <!-- Help -->
     <string name="textHint1">This is the score you have.</string>
     <string name="textHint2">This is the color to match.</string>
@@ -35,8 +35,9 @@
     <!--game Stats -->
     <string name="textTotalGames">Total games: %d</string>
     <string name="textGamesFinished">Games finished: %d</string>
-    <string name="textMedianPressTime">Average press time: %.4f s</string>
-    <string name="textLastMedianPressTime">Last average press time: %.4f s</string>
+    <string name="textAveragePressTime">Average press time: %.4f s</string>
+    <string name="textBestPressTime">Best press time: %.4f s</string>
+    <string name="textLastPressTime">Last press time: %.4f s</string>
     <string name="textBestScore">Best score: %d points</string>
     <string name="textBtnResetStats">Reset Stats</string>
     <string name="textResetStatsQuestion">Are you sure?</string>
@@ -50,19 +51,22 @@
     <string name="idMusic" translatable="false">EnableMusic</string>
     <string name="textFX">Enable FX</string>
     <string name="idFX" translatable="false">EnableFX</string>
-    <string name="idBestTimePress" translatable="false">BestTimePress</string>
-    <string name="idAverageTimePress" translatable="false">AverageTimePress</string>
-    <string name="idLastAverageTimePress" translatable="false">LastAverageTimePress</string>
     <string name="idTotalGames" translatable="false">TotalGames</string>
+    <string name="idTotalBestScore" translatable="false">TotalBestScore</string>
+    <string name="idTotalAveragePressTime" translatable="false">TotalAveragePressTime</string>
+    <string name="idTotalBestPressTime" translatable="false">TotalBestPressTime</string>
+    <string name="idTotalLastPressTime" translatable="false">TotalLastPressTime</string>
     <string name="idGamesFinished" translatable="false">GamesFinished</string>
-    <string name="idBestScore" translatable="false">BestScore</string>
+    <string name="idFinishedBestScore" translatable="false">FinishedBestScore</string>
+    <string name="idFinishedAveragePressTime" translatable="false">FinishedAveragePressTime</string>
+    <string name="idFinishedBestPressTime" translatable="false">FinishedBestPressTime</string>
+    <string name="idFinishedLastPressTime" translatable="false">FinishedLastPressTime</string>
     <string name="idFirstTime" translatable="false">FirstTime</string>
     <string name="idLastVersion" translatable="false">LastVersion</string>
     <string name="idConsent" translatable="false">Consent</string>
     <string name="URLPrivacy" translatable="false">https://agrosemillasgenetic.es/politica-de-privacidad-lorenzo-php/</string>
     <!-- Credits -->
     <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.\nBy Frankum &amp; Frankumjay.\nhttps://freesound.org/people/frankum/sounds/382931\n\nMenu Music: Possible Loading Screen Music\nBy CrushedLoops\nhttps://freesound.org/people/CrushedLoops/sounds/612848\n\nSound Success: UI Pop Up\nBy EminYILDIRIM\nhttps://freesound.org/people/EminYILDIRIM/sounds/540568\n\nSound Failure: UI Sound 13\nBy Nezuai\nhttps://freesound.org/people/nezuai/sounds/577024\n\nSound Counter Back: Score Counter 01\nBy Rhodesmas\nhttps://freesound.org/people/rhodesmas/sounds/342759\n\nAll Icons are included in the Android Studio Software\n\nThe rest: Lorenzo Doñas Rodríguez</string>
-
     <!--Descripciones-->
     <string name="descriptionLogo" translatable="false">GameLogo</string>
     <string name="descriptionHelpButton" translatable="false">Help Button</string>
@@ -107,7 +111,7 @@
     <string name="errorLeaderboard">Sorry can\'t load Leaderboard Screen.</string>
 
     <!--app_id-->
-    <string name="app_id" translatable="false">press-the-color-59946535</string>
+    <string name="app_id" translatable="false">749115142142</string>
     <!--package_name-->
     <string name="package_name" translatable="false">com.loredo.pressthebutton</string>
     <!--leaderboard Mejores Puntuaciones-->
