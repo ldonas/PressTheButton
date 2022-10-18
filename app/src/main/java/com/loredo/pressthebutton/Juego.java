@@ -2,6 +2,7 @@ package com.loredo.pressthebutton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -51,10 +53,18 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
     private int[] _colorButtons = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
+    private final int[] _iConffetti = new int[]{R.drawable.conffetti_01, R.drawable.conffetti_02, R.drawable.conffetti_03, R.drawable.conffetti_04,
+            R.drawable.conffetti_05, R.drawable.conffetti_06, R.drawable.conffetti_07, R.drawable.conffetti_08};
+    private final int[] _iAnimations = new int[]{R.anim.fall_and_rotation_00, R.anim.fall_and_rotation_01, R.anim.fall_and_rotation_02,
+            R.anim.fall_and_rotation_03, R.anim.fall_and_rotation_04, R.anim.fall_and_rotation_05, R.anim.fall_and_rotation_06,
+            R.anim.fall_and_rotation_07, R.anim.fall_and_rotation_08, R.anim.fall_and_rotation_09};
+
     private int _pbSecondBefore, _pbSecondAfter, _pbMinuteBefore, _pbMinuteAfter;
 
     private TextView _tvPoints, _tvCounter, _tvSecondsCount;
     private Animation _anim;
+    private ConstraintLayout _clConfeti;
+    private Random _rRandom;
 
     private final Handler _handler = new Handler();
     private long _startTime, _lastPulse;
@@ -129,8 +139,11 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         if(MainActivity.ad == 3)
             LoadAds();
 
+        _rRandom = new Random(System.currentTimeMillis());
+
         _anim = AnimationUtils.loadAnimation(this, R.anim.small);
         _llExample = findViewById(R.id.llExample);
+        _clConfeti = findViewById(R.id.clConfeti);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         _bFX = sp.getBoolean(getString(R.string.idFX), true);
@@ -256,8 +269,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _handler.post(_rMinutes);
     }
 
-    private void Replay()
-    {
+    private void Replay() {
         _bBackPressed = true;
         if(MainActivity.ad != 52 && MainActivity.mInterstitialAd != null)
         {
@@ -271,22 +283,20 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void NewColors()
-    {
-        Random r = new Random(System.currentTimeMillis());
+    private void NewColors() {
         int[] numbers = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
         _colorButtons = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
         for(int i = 0; i < _visibleButtons.size(); i++)
         {
-            int number = r.nextInt(numbers.length);
+            int number = _rRandom.nextInt(numbers.length);
             _colorButtons[i] = numbers[number];
             numbers[number] = -1;
             numbers = Arrays.stream(numbers).filter(x -> x >= 0).toArray();
         }
 
-        _colorButtons[16] = _colorButtons[r.nextInt(_visibleButtons.size())];
+        _colorButtons[16] = _colorButtons[_rRandom.nextInt(_visibleButtons.size())];
 
         _ib1x1.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[0])));
         _ib1x2.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[1])));
@@ -433,8 +443,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void EndGame(boolean fail)
-    {
+    private void EndGame(boolean fail) {
         if(_bMusic)
             MediaPlay.GameMusicPlayer(MediaPlay.STOP);
         _ib1x1.setEnabled(false);
@@ -456,8 +465,10 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         if(fail)
             _tvPoints.setText(String.format(getString(R.string.textFail), GetPoints()));
-        else
+        else{
+            LaunchConfeti();
             _tvPoints.setText(String.format(getString(R.string.textEnd), GetPoints()));
+        }
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         long totalGames = sp.getLong(getString(R.string.idTotalGames), 0L);
@@ -513,8 +524,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _handler.removeCallbacks(_rMinutes);
     }
 
-    private long GetPoints()
-    {
+    private long GetPoints() {
         float points = 0;
 
         for(int i = 0; i < _points.size(); i++)
@@ -522,6 +532,27 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             points += (float)_points.get(i) * _multipliers.get(i);
         }
         return (long) points;
+    }
+
+    private void LaunchConfeti(){
+        if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.idParticles), true)) {
+            _clConfeti.setVisibility(View.VISIBLE);
+            for (int i = 0; i < 300; i++) {
+                ImageView ivConffetti = new ImageView(_clConfeti.getContext());
+                _clConfeti.addView(ivConffetti);
+                int conffettiID = _iConffetti[_rRandom.nextInt(_iConffetti.length)];
+                ivConffetti.setImageResource(conffettiID);
+                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(_rRandom.nextInt(32) + 32, _rRandom.nextInt(32) + 32);
+                params.startToStart = _clConfeti.getId();
+                params.topToTop = _clConfeti.getId();
+                params.leftMargin = _rRandom.nextInt(_clConfeti.getWidth());
+                params.topMargin = -(_rRandom.nextInt(100) + 100);
+                ivConffetti.setLayoutParams(params);
+                Animation fall = AnimationUtils.loadAnimation(getApplicationContext(), _iAnimations[_rRandom.nextInt(_iAnimations.length)]);
+                fall.scaleCurrentDuration(1f + _rRandom.nextFloat());
+                ivConffetti.startAnimation(fall);
+            }
+        }
     }
 
     private void LoadAds() {
@@ -541,8 +572,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                 });
     }
 
-    private void FullScreenAd()
-    {
+    private void FullScreenAd() {
         MainActivity.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
             @Override
             public void onAdClicked() {

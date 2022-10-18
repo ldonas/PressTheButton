@@ -3,70 +3,55 @@ package com.loredo.pressthebutton;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.ActivityResultLauncherKt;
-import androidx.activity.result.ActivityResultRegistry;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import android.Manifest;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.auth.api.identity.GetSignInIntentRequest;
-import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.ump.ConsentForm;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.AchievementsClient;
-import com.google.android.gms.games.AnnotatedData;
 import com.google.android.gms.games.EventsClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.LeaderboardsClient;
 import com.google.android.gms.games.Player;
 import com.google.android.gms.games.PlayersClient;
-import com.google.android.gms.games.event.Event;
-import com.google.android.gms.games.event.EventBuffer;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -82,11 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EventsClient mEventsClient;
     private PlayersClient mPlayersClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         _btnPlay = findViewById(R.id.btnPlay);
         _btnPlay.setOnClickListener(this);
         _btnStats = findViewById(R.id.btnStats);
@@ -328,17 +313,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Log.d("Games", "signInSilently()");
 
         _gsiaGoogleClient.silentSignIn().addOnCompleteListener(this,
-                new OnCompleteListener<GoogleSignInAccount>() {
-                    @Override
-                    public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-                        if (task.isSuccessful()) {
-                            //Log.d("Games", "signInSilently(): success");
-                            onConnected(task.getResult());
-                        } else {
-                            _btnSignIn.setVisibility(View.VISIBLE);
-                            //Log.d("Games", "signInSilently(): failure", task.getException());
-                            onDisconnected();
-                        }
+                task -> {
+                    if (task.isSuccessful()) {
+                        //Log.d("Games", "signInSilently(): success");
+                        onConnected(task.getResult());
+                    } else {
+                        _btnSignIn.setVisibility(View.VISIBLE);
+                        //Log.d("Games", "signInSilently(): failure", task.getException());
+                        onDisconnected();
                     }
                 });
     }
@@ -358,18 +340,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set the greeting appropriately on main menu
         mPlayersClient.getCurrentPlayer()
-                .addOnCompleteListener(new OnCompleteListener<Player>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Player> task) {
-                        String displayName;
-                        if (task.isSuccessful()) {
-                            displayName = task.getResult().getDisplayName();
-                        } else {
-                            Exception e = task.getException();
-                            //Log.println(Log.ERROR,"Exception", e.getMessage());
-                            displayName = "???";
-                        }
-                        //Log.d("UserName", displayName);
+                .addOnCompleteListener(task -> {
+                    String displayName;
+                    if (task.isSuccessful()) {
+                        displayName = task.getResult().getDisplayName();
+                    } else {
+                        Exception e = task.getException();
+                        displayName = "???";
                     }
                 });
 

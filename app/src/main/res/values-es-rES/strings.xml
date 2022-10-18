@@ -43,4 +43,5 @@
     <string name="textYes">Sí</string>
     <string name="textNo">No</string>
     <string name="textBestPressTime">Mejor tiempo: %.4f s</string>
+    <string name="textParticles">Partículas</string>
 </resources>

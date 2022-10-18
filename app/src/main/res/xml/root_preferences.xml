@@ -20,5 +20,10 @@
             android:key="@string/idFX"
             android:title="@string/textFX"
             app:icon="@drawable/ic_baseline_music_note_24"/>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/idParticles"
+            android:title="@string/textParticles"
+            app:icon="@drawable/ic_baseline_auto_awesome_24" />
     </PreferenceCategory>
 </PreferenceScreen>

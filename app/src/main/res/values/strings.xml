@@ -46,10 +46,11 @@
     <!-- Preferences -->
     <string name="textSettings">Settings</string>
     <string name="textNightMode">Night mode</string>
-    <string name="idNightMode" translatable="false">NightMode</string>
     <string name="textSound">Enable music</string>
-    <string name="idMusic" translatable="false">EnableMusic</string>
     <string name="textFX">Enable FX</string>
+    <string name="textParticles">Enable Particles</string>
+    <string name="idNightMode" translatable="false">NightMode</string>
+    <string name="idMusic" translatable="false">EnableMusic</string>
     <string name="idFX" translatable="false">EnableFX</string>
     <string name="idTotalGames" translatable="false">TotalGames</string>
     <string name="idTotalBestScore" translatable="false">TotalBestScore</string>
@@ -61,6 +62,7 @@
     <string name="idFinishedAveragePressTime" translatable="false">FinishedAveragePressTime</string>
     <string name="idFinishedBestPressTime" translatable="false">FinishedBestPressTime</string>
     <string name="idFinishedLastPressTime" translatable="false">FinishedLastPressTime</string>
+    <string name="idParticles" translatable="false">EnableParticles</string>
     <string name="idFirstTime" translatable="false">FirstTime</string>
     <string name="idLastVersion" translatable="false">LastVersion</string>
     <string name="idConsent" translatable="false">Consent</string>
