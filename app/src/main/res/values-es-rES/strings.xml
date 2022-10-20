@@ -44,4 +44,10 @@
     <string name="textNo">No</string>
     <string name="textBestPressTime">Mejor tiempo: %.4f s</string>
     <string name="textParticles">Partículas</string>
+    <string name="errorGameMusic">No se pudo cargar la música de juego</string>
+    <string name="errorMenuMusic">No se pudo cargar la música de menú</string>
+    <string name="errorVictoryMusic">No se pudo cargar la música de victoria</string>
+    <string name="errorSucceedFX">No se pudo cargar el sonido de acierto</string>
+    <string name="errorFailFX">No se pudo cargar el sonido de fallo</string>
+    <string name="errorCounterFX">No se pudo cargar el sonido de la cuenta atrás</string>
 </resources>

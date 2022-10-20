@@ -3,10 +3,11 @@ package com.loredo.pressthebutton;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MediaPlay {
-    private static MediaPlayer _mpMenu, _mpGame, _mpSucceed, _mpFail, _mpCounterBack;
+    private static MediaPlayer _mpMenu, _mpGame, _mpSucceed, _mpFail, _mpCounterBack, _mpVictory;
     @SuppressLint("StaticFieldLeak")
     private static Context _context;
     public static final int PLAY = 0, STOP = 1;
@@ -18,17 +19,22 @@ public class MediaPlay {
 
         if(_mpGame == null)
             try {
-                _mpGame = MediaPlayer.create(context, R.raw.music_frankum_vintage_techno_house_loop);
+                _mpGame = MediaPlayer.create(context, R.raw.game_music);
             } catch (Exception e) {
-                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.errorGameMusic), Toast.LENGTH_LONG).show();
             }
 
         if(_mpMenu == null)
             try {
-                _mpMenu = MediaPlayer.create(context, R.raw.crushedloops_possible_loading_screen_music);
-                _mpMenu.setOnPreparedListener(MediaPlayer::start);
+                _mpMenu = MediaPlayer.create(context, R.raw.menu_music);
             } catch (Exception e) {
-                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.errorMenuMusic), Toast.LENGTH_LONG).show();
+            }
+        if(_mpVictory == null)
+            try {
+                _mpVictory = MediaPlayer.create(context, R.raw.victory_music);
+            } catch (Exception e) {
+                Toast.makeText(context.getApplicationContext(),context.getString(R.string.errorVictoryMusic), Toast.LENGTH_LONG).show();
             }
     }
 
@@ -40,21 +46,21 @@ public class MediaPlay {
             try {
                 _mpSucceed = MediaPlayer.create(context, R.raw.ui_success);
             } catch (Exception e) {
-                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.errorSucceedFX), Toast.LENGTH_LONG).show();
             }
 
         if(_mpFail == null)
             try {
                 _mpFail = MediaPlayer.create(context, R.raw.ui_fail);
             } catch (Exception e) {
-                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.errorFailFX), Toast.LENGTH_LONG).show();
             }
 
         if(_mpCounterBack == null)
             try{
                 _mpCounterBack = MediaPlayer.create(context, R.raw.ui_counter_back);
             } catch (Exception e) {
-                Toast.makeText(context.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.errorCounterFX), Toast.LENGTH_LONG).show();
             }
     }
 
@@ -83,6 +89,20 @@ public class MediaPlay {
             else if (reproduction == STOP && _mpMenu.isPlaying()) {
                 _mpMenu.seekTo(0);
                 _mpMenu.pause();
+            }
+        }
+    }
+
+    public static void VictoryMusicPlayer(int reproduction)
+    {
+        if(_mpVictory != null) {
+            if (reproduction == PLAY && !_mpVictory.isPlaying()) {
+                _mpVictory.setLooping(false);
+                _mpVictory.start();
+            }
+            else if (reproduction == STOP && _mpMenu.isPlaying()) {
+                _mpVictory.seekTo(0);
+                _mpVictory.pause();
             }
         }
     }

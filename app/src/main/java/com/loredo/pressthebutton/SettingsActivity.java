@@ -30,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             getSharedPreferences(getPackageName() + "_preferences",MODE_PRIVATE).registerOnSharedPreferenceChangeListener((sharedPreferences, s) -> {
                 if(s.equals(getString(R.string.idNightMode))) {
+                    _bBackPressed = true;
+
                     if (sharedPreferences.getBoolean(s, false))
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     else

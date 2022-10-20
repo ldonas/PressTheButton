@@ -42,7 +42,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     private ProgressBar _pbarSecond, _pbarMinute;
 
     private TableLayout _tlColors;
-    private LinearLayout _llBottom, _llExample;
+    private LinearLayout _llBottom;
 
     private final ArrayList<Button> _visibleButtons = new ArrayList<>();
     private final ArrayList<Integer> _points = new ArrayList<>();
@@ -62,12 +62,13 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     private int _pbSecondBefore, _pbSecondAfter, _pbMinuteBefore, _pbMinuteAfter;
 
     private TextView _tvPoints, _tvCounter, _tvSecondsCount;
-    private Animation _anim;
+    private Animation _animToSmall, _animShortTimeText, _animShortTimeBar, _animShake, _animLastSecond;
     private ConstraintLayout _clConfeti;
     private Random _rRandom;
 
     private final Handler _handler = new Handler();
     private long _startTime, _lastPulse;
+    private int _iShortTime, _iLastSecond;
     private final Runnable _rSeconds = new Runnable() {
         @Override
         public void run() {
@@ -80,6 +81,10 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             }
             else if(delta >= 0) {
                 int progressTint = GamesColor.ColorLerp(_pbSecondBefore, _pbSecondAfter, (int) delta, (int) _MAXTIMEPULSE);
+                if(delta > _MAXTIMEPULSE - _iLastSecond){
+                    _ivExampleColor.startAnimation(_animLastSecond);
+                    _iLastSecond = -1;
+                }
                 _pbarSecond.setProgress((int) delta, false);
                 _pbarSecond.setProgressTintList(ColorStateList.valueOf(progressTint));
             }
@@ -91,11 +96,13 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         @Override
         public void run() {
             long delta = System.currentTimeMillis() - _startTime;
+            //Cuenta atrás inicial
             if(_tvCounter.getVisibility() == View.VISIBLE) {
                 if (delta < 0L) {
                     long second = (delta * -1) / 1000L;
                     _tvCounter.setText(String.valueOf(second + 1));
-                    _tvCounter.startAnimation(_anim);
+                    if(_animToSmall != null)
+                        _tvCounter.startAnimation(_animToSmall);
                     if(_bFX)
                         MediaPlay.PlayCounterBack();
                     _handler.postDelayed(this, 1000);
@@ -113,19 +120,30 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                     _handler.postDelayed(this, 100);
                 }
             }
-            else if(delta > _MAXTIMEGAME)
-            {
+            //El juego termina a los 60s
+            else if(delta > _MAXTIMEGAME) {
                 delta = _MAXTIMEGAME;
                 _pbarMinute.setProgress((int)delta,false);
+                _tvSecondsCount.setTextColor(getColor(R.color.ForegroundColor));
                 _tvSecondsCount.setText(getString(R.string.textTimeFinished));
                 EndGame(false);
             }
-            else
-            {
+            //Proceso normal de juego
+            else {
                 int progressTint = GamesColor.ColorLerp(_pbMinuteBefore,_pbMinuteAfter,(int)delta,(int)_MAXTIMEGAME);
+                long secondsLeft = ((_MAXTIMEGAME - delta)/1000L)+1;
+                //Si quedan pocos segundos, mostramos una animación y tintamos de rojo el tiempo
+                if(secondsLeft > 0 && secondsLeft == _iShortTime){
+                    if(_animShortTimeText != null)
+                        _tvSecondsCount.startAnimation(_animShortTimeText);
+                    if(_animShortTimeBar != null)
+                        _pbarMinute.startAnimation(_animShortTimeBar);
+                    _tvSecondsCount.setTextColor(getColor(R.color.pbSecondAfterColor));
+                    _iShortTime--;
+                }
                 _pbarMinute.setProgressTintList(ColorStateList.valueOf(progressTint));
                 _pbarMinute.setProgress((int)delta, false);
-                _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),((_MAXTIMEGAME - delta)/1000L)));
+                _tvSecondsCount.setText(String.format(getString(R.string.textSecondsCount),secondsLeft));
                 _handler.postDelayed(this,100);
             }
         }
@@ -141,8 +159,14 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         _rRandom = new Random(System.currentTimeMillis());
 
-        _anim = AnimationUtils.loadAnimation(this, R.anim.small);
-        _llExample = findViewById(R.id.llExample);
+        _iShortTime = 3;
+        _iLastSecond = 1000;
+
+        _animToSmall = AnimationUtils.loadAnimation(this, R.anim.small);
+        _animShortTimeText = AnimationUtils.loadAnimation(this, R.anim.short_time_text);
+        _animShortTimeBar = AnimationUtils.loadAnimation(this, R.anim.short_time_bar);
+        _animShake = AnimationUtils.loadAnimation(this, R.anim.fail);
+        _animLastSecond = AnimationUtils.loadAnimation(this, R.anim.last_second);
         _clConfeti = findViewById(R.id.clConfeti);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -273,6 +297,9 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _bBackPressed = true;
         if(MainActivity.ad != 52 && MainActivity.mInterstitialAd != null)
         {
+            if(_bMusic) {
+                MediaPlay.VictoryMusicPlayer(MediaPlay.STOP);
+            }
             MainActivity.mInterstitialAd.show(this);
             MainActivity.ad = 52;
         }
@@ -284,20 +311,22 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void NewColors() {
-        int[] numbers = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+        //Creamos un vector con los índices de color
+        int[] colors = new int[GamesColor.getColorCount()];
+        Arrays.setAll(colors, p -> p > GamesColor.getColorCount() ? 0 : p);
 
-        _colorButtons = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        //Seleccionamos un color nulo para cada botón
+        _colorButtons = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1};
 
         for(int i = 0; i < _visibleButtons.size(); i++)
         {
-            int number = _rRandom.nextInt(numbers.length);
-            _colorButtons[i] = numbers[number];
-            numbers[number] = -1;
-            numbers = Arrays.stream(numbers).filter(x -> x >= 0).toArray();
+            int colorIndex = _rRandom.nextInt(colors.length);
+            _colorButtons[i] = colors[colorIndex];
+            colors[colorIndex] = -1;
+            colors = Arrays.stream(colors).filter(x -> x >= 0).toArray();
         }
 
-        _colorButtons[16] = _colorButtons[_rRandom.nextInt(_visibleButtons.size())];
-
+        //Colocamos los colores en cada botón correspontiende
         _ib1x1.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[0])));
         _ib1x2.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[1])));
 
@@ -331,6 +360,8 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             _ib4x4.setBackgroundColor(GamesColor.ColorVariant(GamesColor.GetColor(_colorButtons[15])));
         }
 
+        //Seleccionamos un color para el ejemplo
+        _colorButtons[16] = _colorButtons[_rRandom.nextInt(_visibleButtons.size())];
         _ivExampleColor.setBackgroundColor(GamesColor.GetColor(_colorButtons[16]));
     }
 
@@ -417,10 +448,13 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             btnColor = _colorButtons[15];
 
         if(btnColor == _colorButtons[16]) {
+            _iLastSecond = 1000;
             long now = System.currentTimeMillis();
             long delta = now - _lastPulse;
             _lastPulse = now;
+            //Calculamos el multiplicador y lo limitamos a 0.5
             float multiplier = ((float)(_MAXTIMEPULSE - (delta))) / 1000.0f;
+            multiplier = Float.max(multiplier, 0.5f);
             _points.add(_visibleButtons.size());
             _multipliers.add(multiplier);
             _tvPoints.setText(String.format(getResources().getString(R.string.textPoints), GetPoints()));
@@ -433,12 +467,11 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             _lastPulse = System.currentTimeMillis();
         }
         else {
-            final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
             if(_bFX)
                 MediaPlay.PlayFail();
             _tvPoints.setText(String.format(getResources().getString(R.string.textFail), GetPoints()));
-            _ivExampleColor.startAnimation(animShake);
-            _tlColors.startAnimation(animShake);
+            _ivExampleColor.startAnimation(_animShake);
+            _tlColors.startAnimation(_animShake);
             EndGame(true);
         }
     }
@@ -467,6 +500,8 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             _tvPoints.setText(String.format(getString(R.string.textFail), GetPoints()));
         else{
             LaunchConfeti();
+            if(_bMusic)
+                MediaPlay.VictoryMusicPlayer(MediaPlay.PLAY);
             _tvPoints.setText(String.format(getString(R.string.textEnd), GetPoints()));
         }
 
@@ -504,14 +539,6 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
             _btnShare.setVisibility(View.VISIBLE);
         }
-
-        /*
-        if(GetPoints() > 0) {
-            mImageView.setText(getString(R.string.textSubmit));
-            mImageView.setEnabled(true);
-            mImageView.setTextColor(GamesColor.TextColorInverted(GamesColor.GetColor(_colorButtons[16])));
-            mImageView.setOnClickListener(view -> SubmitScore());
-        }*/
 
         _llBottom.setVisibility(View.VISIBLE);
 
@@ -576,11 +603,6 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         MainActivity.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
             @Override
             public void onAdClicked() {
-                // Called when a click is recorded for an ad.
-                if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(getString(R.string.idMusic), true)) {
-                    MediaPlay.MenuMusicPlayer(MediaPlay.STOP);
-                    MediaPlay.GameMusicPlayer(MediaPlay.STOP);
-                }
                 MainActivity.ad = 52;
             }
 

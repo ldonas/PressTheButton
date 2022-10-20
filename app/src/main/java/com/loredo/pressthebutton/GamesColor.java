@@ -5,7 +5,7 @@ import android.graphics.Color;
 import java.util.Random;
 
 public class GamesColor {
-    private final static int[] _COLORS = {Color.parseColor("#faf271"), /* 1. Amarillo*/
+    private final static int[] _iCOLORS = {Color.parseColor("#faf271"), /* 1. Amarillo*/
             Color.parseColor("#888888"), /* 2. Gris Claro*/
             Color.parseColor("#e5b463"), /* 3. Naranja*/
             Color.parseColor("#9d6da5"), /* 4. Violeta*/
@@ -22,11 +22,11 @@ public class GamesColor {
             Color.parseColor("#75ad74"), /*15. Verde Oscuro*/
             Color.parseColor("#545454")  /*16. Gris Oscuro*/};
 
-    public static int MaxColor() {return _COLORS.length;}
+    public static int getColorCount(){return _iCOLORS.length;}
 
     public static int GetColor(int colorNumber) {
-        if(colorNumber >= 0 && colorNumber < _COLORS.length)
-            return _COLORS[colorNumber];
+        if(colorNumber >= 0 && colorNumber < _iCOLORS.length)
+            return _iCOLORS[colorNumber];
         else
             return Color.parseColor("#FF000000");
     }
