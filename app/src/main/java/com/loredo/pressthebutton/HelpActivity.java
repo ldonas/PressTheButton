@@ -18,7 +18,7 @@ public class HelpActivity extends AppCompatActivity {
     private Button _btnNextHint;
     private TableLayout _tlButtons;
     private LinearLayout _llMinutes;
-    private ProgressBar _pbSecond, _pbMinute;
+    private ProgressBar _pbSecond;
 
     private int _iHint = 0;
     private boolean _bBackPressed = false;
@@ -35,7 +35,6 @@ public class HelpActivity extends AppCompatActivity {
         _tlButtons = findViewById(R.id.tlButtonsEx);
         _pbSecond = findViewById(R.id.pbSecondEx);
         _llMinutes = findViewById(R.id.llMinuteEx);
-        _pbMinute = findViewById(R.id.pbMinuteEx);
         _btnNextHint = findViewById(R.id.btnNextHint);
         _btnNextHint.setOnClickListener(view -> NextHint());
         FrameLayout flBackground = findViewById(R.id.flBackground);

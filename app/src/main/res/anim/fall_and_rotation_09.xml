@@ -14,6 +14,6 @@
         android:pivotY="50%"
         android:toXScale="-100%"
         android:toYScale="100%"
-        android:repeatCount="10"
+        android:repeatCount="15"
         android:repeatMode="reverse"/>
 </set>

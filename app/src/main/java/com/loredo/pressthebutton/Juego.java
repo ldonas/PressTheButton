@@ -61,7 +61,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
     private int _pbSecondBefore, _pbSecondAfter, _pbMinuteBefore, _pbMinuteAfter;
 
-    private TextView _tvPoints, _tvCounter, _tvSecondsCount;
+    private TextView _tvPoints, _tvCounter, _tvSecondsCount, _tvBestScore;
     private Animation _animToSmall, _animShortTimeText, _animShortTimeBar, _animShake, _animLastSecond;
     private ConstraintLayout _clConfeti;
     private Random _rRandom;
@@ -81,7 +81,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             }
             else if(delta >= 0) {
                 int progressTint = GamesColor.ColorLerp(_pbSecondBefore, _pbSecondAfter, (int) delta, (int) _MAXTIMEPULSE);
-                if(delta > _MAXTIMEPULSE - _iLastSecond){
+                if(delta > _MAXTIMEPULSE - _iLastSecond) {
                     _ivExampleColor.startAnimation(_animLastSecond);
                     _iLastSecond = -1;
                 }
@@ -121,12 +121,14 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
                 }
             }
             //El juego termina a los 60s
-            else if(delta > _MAXTIMEGAME) {
-                delta = _MAXTIMEGAME;
-                _pbarMinute.setProgress((int)delta,false);
-                _tvSecondsCount.setTextColor(getColor(R.color.ForegroundColor));
-                _tvSecondsCount.setText(getString(R.string.textTimeFinished));
-                EndGame(false);
+            else if(delta >= _MAXTIMEGAME) {
+                if(_tvSecondsCount.getText() != getString(R.string.textTimeFinished)) {
+                    _pbarMinute.setProgress(_pbarMinute.getMax(), false);
+                    _tvSecondsCount.setTextColor(getColor(R.color.ForegroundColor));
+                    _tvSecondsCount.setText(getString(R.string.textTimeFinished));
+                    EndGame(false);
+                    _handler.postDelayed(this, 100);
+                }
             }
             //Proceso normal de juego
             else {
@@ -158,7 +160,6 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             LoadAds();
 
         _rRandom = new Random(System.currentTimeMillis());
-
         _iShortTime = 3;
         _iLastSecond = 1000;
 
@@ -190,6 +191,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _tvPoints = findViewById(R.id.tvPoints);
         _tvPoints.setText(String.format(getResources().getString(R.string.textPoints), GetPoints()));
         _tvCounter = findViewById(R.id.tvCounter);
+        _tvBestScore = findViewById(R.id.tvBestScoreGame);
 
         _ivExampleColor = findViewById(R.id.ivExample);
 
@@ -295,17 +297,19 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
     private void Replay() {
         _bBackPressed = true;
+        _pbarMinute.setProgress(0, false);
+        _pbarSecond.setProgress(0, false);
         if(MainActivity.ad != 52 && MainActivity.mInterstitialAd != null)
         {
             if(_bMusic) {
                 MediaPlay.VictoryMusicPlayer(MediaPlay.STOP);
             }
             MainActivity.mInterstitialAd.show(this);
+            _btnReplay.setEnabled(false);
+            _btnShare.setEnabled(false);
             MainActivity.ad = 52;
         }
         else {
-            _pbarMinute.setProgress(0, false);
-            _pbarSecond.setProgress(0, false);
             this.recreate();
         }
     }
@@ -412,7 +416,7 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(@NonNull View view) {
         int btnColor = -1;
         if(view.getId() == _ib1x1.getId())
             btnColor = _colorButtons[0];
@@ -447,6 +451,9 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         if(view.getId() == _ib4x4.getId())
             btnColor = _colorButtons[15];
 
+        if(btnColor!= -1)
+            _ivExampleColor.clearAnimation();
+
         if(btnColor == _colorButtons[16]) {
             _iLastSecond = 1000;
             long now = System.currentTimeMillis();
@@ -470,10 +477,43 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
             if(_bFX)
                 MediaPlay.PlayFail();
             _tvPoints.setText(String.format(getResources().getString(R.string.textFail), GetPoints()));
-            _ivExampleColor.startAnimation(_animShake);
-            _tlColors.startAnimation(_animShake);
             EndGame(true);
         }
+    }
+
+    private void ShakeScreen() {
+        _ivExampleColor.startAnimation(_animShake);
+        _tlColors.startAnimation(_animShake);
+    }
+
+    private void AppearNewBestScore(){
+        _tvBestScore.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_rotate_maximize));
+        _tvBestScore.setText(getString(R.string.textNewBestScore));
+        _tvBestScore.setVisibility(View.VISIBLE);
+    }
+
+    private void AppearFailure(){
+        _tvBestScore.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_rotate_reverse_maximize));
+        _tvBestScore.setText(getString(R.string.textFailFinished));
+        _tvBestScore.setTextColor(getColor(R.color.ForegroundColor));
+        _tvBestScore.setShadowLayer(10,0,0, getColor(R.color.ForegroundColorInverted));
+        _tvBestScore.setVisibility(View.VISIBLE);
+    }
+
+    private void AppearTimeout(){
+        _tvBestScore.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_rotate_maximize));
+        _tvBestScore.setText(getString(R.string.textTimeFinished));
+        _tvBestScore.setTextColor(getColor(R.color.ForegroundColor));
+        _tvBestScore.setShadowLayer(10,0,0, getColor(R.color.ForegroundColorInverted));
+        _tvBestScore.setVisibility(View.VISIBLE);
+    }
+
+    private void AppearFinished(){
+        _tvBestScore.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_rotate_maximize));
+        _tvBestScore.setText(getString(R.string.textGameFinished));
+        _tvBestScore.setTextColor(getColor(R.color.ForegroundColor));
+        _tvBestScore.setShadowLayer(10,0,0, getColor(R.color.ForegroundColorInverted));
+        _tvBestScore.setVisibility(View.VISIBLE);
     }
 
     private void EndGame(boolean fail) {
@@ -496,48 +536,24 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
         _ib4x3.setEnabled(false);
         _ib4x4.setEnabled(false);
 
-        if(fail)
+        UpdateStats();
+
+        if(_tvBestScore.getAnimation() == null){
+            if(_pbarMinute.getProgress() == _pbarMinute.getMax())
+                AppearFinished();
+            else if(_pbarSecond.getProgress() == _pbarSecond.getMax())
+                AppearTimeout();
+            else if(fail)
+                AppearFailure();
+        }
+
+        if(fail) {
+            ShakeScreen();
             _tvPoints.setText(String.format(getString(R.string.textFail), GetPoints()));
-        else{
-            LaunchConfeti();
+        }
+        else {
             if(_bMusic)
                 MediaPlay.VictoryMusicPlayer(MediaPlay.PLAY);
-            _tvPoints.setText(String.format(getString(R.string.textEnd), GetPoints()));
-        }
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        long totalGames = sp.getLong(getString(R.string.idTotalGames), 0L);
-        totalGames++;
-        sp.edit().putLong(getString(R.string.idTotalGames), totalGames).apply();
-        long bestScore = sp.getLong(getString(R.string.idTotalBestScore), 0L);
-        if(GetPoints() > bestScore) {
-            sp.edit().putLong(getString(R.string.idTotalBestScore), GetPoints()).apply();
-        }
-        if(GetPoints() > 0) {
-            sp.edit().putLong(getString(R.string.idTotalLastPressTime), _averagePressTime).apply();
-            long totalBestPressTime = sp.getLong(getString(R.string.idTotalBestPressTime), Long.MAX_VALUE);
-            if(_averagePressTime < totalBestPressTime || totalBestPressTime == 0)
-                sp.edit().putLong(getString(R.string.idTotalBestPressTime), _averagePressTime).apply();
-            long totalAveragePress = sp.getLong(getString(R.string.idTotalAveragePressTime), 0L);
-            totalAveragePress = ((totalAveragePress * (totalGames - 1)) + _averagePressTime) / totalGames;
-            sp.edit().putLong(getString(R.string.idTotalAveragePressTime), totalAveragePress).apply();
-            if(!fail) {
-                long gamesFinished = sp.getLong(getString(R.string.idGamesFinished), 0L);
-                gamesFinished++;
-                sp.edit().putLong(getString(R.string.idGamesFinished), gamesFinished).apply();
-                long finishedBestPressTime = sp.getLong(getString(R.string.idFinishedBestPressTime), Long.MAX_VALUE);
-                if(_averagePressTime < finishedBestPressTime || finishedBestPressTime == 0)
-                    sp.edit().putLong(getString(R.string.idFinishedBestPressTime), _averagePressTime).apply();
-                long finishedAveragePress = sp.getLong(getString(R.string.idFinishedAveragePressTime), 0L);
-                finishedAveragePress = ((finishedAveragePress * (gamesFinished - 1)) + _averagePressTime) / gamesFinished;
-                sp.edit().putLong(getString(R.string.idFinishedAveragePressTime), finishedAveragePress).apply();
-                sp.edit().putLong(getString(R.string.idFinishedLastPressTime), _averagePressTime).apply();
-                long finishedBestScore = sp.getLong(getString(R.string.idFinishedBestScore), 0L);
-                if(GetPoints() > finishedBestScore)
-                    sp.edit().putLong(getString(R.string.idFinishedBestScore), GetPoints()).apply();
-            }
-
-            _btnShare.setVisibility(View.VISIBLE);
         }
 
         _llBottom.setVisibility(View.VISIBLE);
@@ -549,6 +565,42 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
 
         _handler.removeCallbacks(_rSeconds);
         _handler.removeCallbacks(_rMinutes);
+    }
+
+    private void UpdateStats(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        long totalGames = sp.getLong(getString(R.string.idTotalGames), 0L);
+        totalGames++;
+        sp.edit().putLong(getString(R.string.idTotalGames), totalGames).apply();
+        long bestScore = sp.getLong(getString(R.string.idTotalBestScore), 0L);
+        if(GetPoints() > bestScore) {
+            AppearNewBestScore();
+            LaunchConfeti();
+            sp.edit().putLong(getString(R.string.idTotalBestScore), GetPoints()).apply();
+        }
+        if(GetPoints() > 0) {
+            sp.edit().putLong(getString(R.string.idTotalLastPressTime), _averagePressTime).apply();
+            long totalBestPressTime = sp.getLong(getString(R.string.idTotalBestPressTime), Long.MAX_VALUE);
+            if(_averagePressTime < totalBestPressTime || totalBestPressTime == 0)
+                sp.edit().putLong(getString(R.string.idTotalBestPressTime), _averagePressTime).apply();
+            long totalAveragePress = sp.getLong(getString(R.string.idTotalAveragePressTime), 0L);
+            totalAveragePress = ((totalAveragePress * (totalGames - 1)) + _averagePressTime) / totalGames;
+            sp.edit().putLong(getString(R.string.idTotalAveragePressTime), totalAveragePress).apply();
+            if(_pbarMinute.getProgress() >= _pbarMinute.getMax()) {
+                long gamesFinished = sp.getLong(getString(R.string.idGamesFinished), 0L);
+                gamesFinished++;
+                sp.edit().putLong(getString(R.string.idGamesFinished), gamesFinished).apply();
+                long finishedBestPressTime = sp.getLong(getString(R.string.idFinishedBestPressTime), Long.MAX_VALUE);
+                if(_averagePressTime < finishedBestPressTime || finishedBestPressTime == 0)
+                    sp.edit().putLong(getString(R.string.idFinishedBestPressTime), _averagePressTime).apply();
+                long finishedAveragePress = sp.getLong(getString(R.string.idFinishedAveragePressTime), 0L);
+                finishedAveragePress = ((finishedAveragePress * (gamesFinished - 1)) + _averagePressTime) / gamesFinished;
+                sp.edit().putLong(getString(R.string.idFinishedAveragePressTime), finishedAveragePress).apply();
+                sp.edit().putLong(getString(R.string.idFinishedLastPressTime), _averagePressTime).apply();
+            }
+
+            _btnShare.setVisibility(View.VISIBLE);
+        }
     }
 
     private long GetPoints() {
@@ -564,12 +616,15 @@ public class Juego extends AppCompatActivity implements View.OnClickListener{
     private void LaunchConfeti(){
         if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.idParticles), true)) {
             _clConfeti.setVisibility(View.VISIBLE);
+            int maxConfetiSize = Integer.max(_clConfeti.getWidth() / 30, 8);
             for (int i = 0; i < 300; i++) {
                 ImageView ivConffetti = new ImageView(_clConfeti.getContext());
                 _clConfeti.addView(ivConffetti);
                 int conffettiID = _iConffetti[_rRandom.nextInt(_iConffetti.length)];
                 ivConffetti.setImageResource(conffettiID);
-                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(_rRandom.nextInt(32) + 32, _rRandom.nextInt(32) + 32);
+                int width = _rRandom.nextInt(maxConfetiSize) + maxConfetiSize;
+                int height = _rRandom.nextInt(maxConfetiSize) + maxConfetiSize;
+                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(width, height);
                 params.startToStart = _clConfeti.getId();
                 params.topToTop = _clConfeti.getId();
                 params.leftMargin = _rRandom.nextInt(_clConfeti.getWidth());

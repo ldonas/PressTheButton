@@ -50,4 +50,7 @@
     <string name="errorSucceedFX">No se pudo cargar el sonido de acierto</string>
     <string name="errorFailFX">No se pudo cargar el sonido de fallo</string>
     <string name="errorCounterFX">No se pudo cargar el sonido de la cuenta atrás</string>
+    <string name="textNewBestScore">¡Nuevo Récord!</string>
+    <string name="textFailFinished">¡Fallaste!</string>
+    <string name="textGameFinished">¡Terminaste!</string>
 </resources>

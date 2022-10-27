@@ -20,8 +20,11 @@
     <string name="textPoints">Score: %d</string>
     <string name="textFail">Failed!: %d</string>
     <string name="textEnd">End: %d</string>
+    <string name="textNewBestScore">New Best Score!</string>
     <string name="textSecondsCount" translatable="false">%d s</string>
     <string name="textTimeFinished">Timeout!</string>
+    <string name="textGameFinished">Finish!</string>
+    <string name="textFailFinished">Game Over!</string>
     <string name="textSubmit">Submit Score</string>
     <string name="textbtnShare">Share</string>
     <string name="textReplay">Replay</string>
@@ -68,7 +71,7 @@
     <string name="idConsent" translatable="false">Consent</string>
     <string name="URLPrivacy" translatable="false">https://agrosemillasgenetic.es/politica-de-privacidad-lorenzo-php/</string>
     <!-- Credits -->
-    <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.\nBy Frankum &amp; Frankumjay.\nhttps://freesound.org/people/frankum/sounds/382931\n\nMenu Music: Possible Loading Screen Music\nBy CrushedLoops\nhttps://freesound.org/people/CrushedLoops/sounds/612848\n\nVictory Music: Mission Successful\nBy Rocketpancake\nhttps://freesound.org/people/rocketpancake/sounds/582970\n\nSound Success: UI Pop Up\nBy EminYILDIRIM\nhttps://freesound.org/people/EminYILDIRIM/sounds/540568\n\nSound Failure: UI Sound 13\nBy Nezuai\nhttps://freesound.org/people/nezuai/sounds/577024\n\nSound Counter Back: Score Counter 01\nBy Rhodesmas\nhttps://freesound.org/people/rhodesmas/sounds/342759\n\nAll Icons are included in the Android Studio Software\n\nThe rest: Lorenzo Doñas Rodríguez</string>
+    <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.\nBy Frankum &amp; Frankumjay.\nhttps://freesound.org/people/frankum/sounds/382931\n\nMenu Music: Possible Loading Screen Music\nBy CrushedLoops\nhttps://freesound.org/people/CrushedLoops/sounds/612848\n\nVictory Music: Mission Successful\nBy Rocketpancake\nhttps://freesound.org/people/rocketpancake/sounds/582970\n\nSound Success: UI Pop Up\nBy EminYILDIRIM\nhttps://freesound.org/people/EminYILDIRIM/sounds/540568\n\nSound Failure: UI Sound 13\nBy Nezuai\nhttps://freesound.org/people/nezuai/sounds/577024\n\nSound Counter Back: Score Counter 01\nBy Rhodesmas\nhttps://freesound.org/people/rhodesmas/sounds/342759\n\nAll Icons are included in the Android Studio Software\n\nEverything Else: Lorenzo Doñas Rodríguez</string>
     <!--Descripciones-->
     <string name="descriptionLogo" translatable="false">GameLogo</string>
     <string name="descriptionHelpButton" translatable="false">Help Button</string>

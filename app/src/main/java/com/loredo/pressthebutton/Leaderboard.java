@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 public class Leaderboard extends AppCompatActivity {
 
-    private static final int RC_LEADERBOARD_UI = 1052;
     private boolean _bBackPressed = false;
 
     @Override
