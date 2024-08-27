@@ -23,12 +23,12 @@
     <string name="textNewBestScore">New Best Score!</string>
     <string name="textSecondsCount" translatable="false">%d s</string>
     <string name="textTimeFinished">Timeout!</string>
-    <string name="textGameFinished">Finish!</string>
+    <string name="textGameFinished">Congratulations!</string>
     <string name="textFailFinished">Game Over!</string>
     <string name="textSubmit">Submit Score</string>
     <string name="textbtnShare">Share</string>
     <string name="textReplay">Replay</string>
-    <string name="textShare">I Score %d points in Press The Color game!! Download at https://play.google.com/store/apps/details?id=com.loredo.pressthebutton</string>
+    <string name="textShare">I Score %d points in Press The Color game!! Download at https://play.google.com/store/apps</string>
     <!-- Help -->
     <string name="textHint1">This is the score you have.</string>
     <string name="textHint2">This is the color to match.</string>
@@ -69,7 +69,7 @@
     <string name="idFirstTime" translatable="false">FirstTime</string>
     <string name="idLastVersion" translatable="false">LastVersion</string>
     <string name="idConsent" translatable="false">Consent</string>
-    <string name="URLPrivacy" translatable="false">https://agrosemillasgenetic.es/politica-de-privacidad-lorenzo-php/</string>
+    <string name="URLPrivacy" translatable="false">https://www.privacypolicy.com/</string>
     <!-- Credits -->
     <string name="textCredits" translatable="false">Game Music: Vintage - Techno house loop -110bpm.\nBy Frankum &amp; Frankumjay.\nhttps://freesound.org/people/frankum/sounds/382931\n\nMenu Music: Possible Loading Screen Music\nBy CrushedLoops\nhttps://freesound.org/people/CrushedLoops/sounds/612848\n\nVictory Music: Mission Successful\nBy Rocketpancake\nhttps://freesound.org/people/rocketpancake/sounds/582970\n\nSound Success: UI Pop Up\nBy EminYILDIRIM\nhttps://freesound.org/people/EminYILDIRIM/sounds/540568\n\nSound Failure: UI Sound 13\nBy Nezuai\nhttps://freesound.org/people/nezuai/sounds/577024\n\nSound Counter Back: Score Counter 01\nBy Rhodesmas\nhttps://freesound.org/people/rhodesmas/sounds/342759\n\nAll Icons are included in the Android Studio Software\n\nEverything Else: Lorenzo Doñas Rodríguez</string>
     <!--Descripciones-->
@@ -122,15 +122,15 @@
     <string name="errorCounterFX">Can\'t load Counter sound</string>
 
     <!--app_id-->
-    <string name="app_id" translatable="false">749115142142</string>
+    <string name="app_id" translatable="false">app-id</string>
     <!--package_name-->
     <string name="package_name" translatable="false">com.loredo.pressthebutton</string>
     <!--leaderboard Mejores Puntuaciones-->
-    <string name="leaderboard_mejores_puntuaciones" translatable="false">CgkI_t_31eYVEAIQAA</string>
+    <string name="leaderboard_mejores_puntuaciones" translatable="false">leaderboard-id</string>
     <!-- Ads -->
-    <string name="AppIdAds" translatable="false">ca-app-pub-3987144895253056~9864616531</string>
-    <string name="InterstitialAdUnitID" translatable="false">ca-app-pub-3987144895253056/6828572853</string>
-    <string name="AppIdAdsDebug" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="InterstitialAdUnitIDDebug" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="AppIdAds" translatable="false">AppIdAds</string>
+    <string name="InterstitialAdUnitID" translatable="false">InterstitialAdUnitID</string>
+    <string name="AppIdAdsDebug" translatable="false">AppIdAdsDebug</string>
+    <string name="InterstitialAdUnitIDDebug" translatable="false">InterstitialAdUnitIDDebug</string>
 
 </resources>

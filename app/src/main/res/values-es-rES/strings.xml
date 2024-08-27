@@ -8,7 +8,7 @@
     <string name="textLeaderboard">Marcadores</string>
     <string name="textbtnShare">Compartir</string>
     <string name="textReplay">Jugar</string>
-    <string name="textShare">¡¡He conseguido %d puntos en el juego Pulsa el Color!! Descárgalo en https://play.google.com/store/apps/details?id=com.loredo.pressthebutton</string>
+    <string name="textShare">¡¡He conseguido %d puntos en el juego Pulsa el Color!! Descárgalo en https://play.google.com/store/apps/</string>
     <string name="textLoadAd">Cargando…</string>
     <string name="textToastAd">No se pudo cargar el anuncio</string>
     <string name="app_first_word">Pulsa</string>
